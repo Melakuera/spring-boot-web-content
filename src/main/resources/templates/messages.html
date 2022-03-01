@@ -5,20 +5,40 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div>
+		<form th:action="@{/messages/new}" method="post" th:object="${message}">
+		
+			<input type="text" th:field="*{text}" placeholder="Введите сообщение">
+			<input type="text" th:field="*{tag}" placeholder="Введите тег">
+			<input type="submit" value="Добавить!">
+	
+		</form>	
+	</div>
+	
+	<br>
+
+	<h1>Список сообщений: </h1>	
+	<div>
+		<form th:action="@{/messages/filter}" method="post">
+			<input type="text" name="filter" placeholder="Отфильтрововать">
+			<input type="submit" value="Искать!">
+		</form>
+	</div>
+	
 	<div th:each="m : ${messages}">
 		
 		<span th:text="${m.getId()} + ': '"></span>
-		<span th:text="${m.getText()} + '-'"></span>
+		<span th:text="${m.getText()} + ' - '"></span>
 		<span th:text="${m.getTag()}"></span>
 	
 	</div>
 	
-	<div>
-		<form th:action="@{/messages/new}" method="get">
+	<!-- <div>
+		<form th:action="@{/messages/new}" method="post">
 			<input type="submit" value="Добавить новое сообщение!">
 	
 		</form>	
-	</div>
+	</div> -->
 
 </body>
 </html>

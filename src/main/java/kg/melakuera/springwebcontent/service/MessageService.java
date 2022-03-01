@@ -28,6 +28,10 @@ public class MessageService {
 		messageRepository.save(message);
 	}
 	
+	public List<Message> findByTagLike(String filter){
+		return messageRepository.findByTagLike(filter);
+	}
+	
 	
 
 }

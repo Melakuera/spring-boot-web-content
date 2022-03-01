@@ -22,28 +22,35 @@ public class MainController {
 		this.messageService = messageService;
 	}
 
-	@GetMapping("/greeting")
-	public String greeting(
-			@RequestParam(name="name", required=false, defaultValue="World" ) String name, 
-			Model model) {
-		model.addAttribute("name", name);
-		return "greeting";
-	}
+	/*
+	 * @GetMapping("/greeting") public String greeting(
+	 * 
+	 * @RequestParam(name="name", required=false, defaultValue="World" ) String
+	 * name, Model model) { model.addAttribute("name", name); return "greeting"; }
+	 */
 	
 	@GetMapping("/messages")
-	public String findAll(Model model){
+	public String findAll(Model model, @ModelAttribute("message") Message message){
 		model.addAttribute("messages", messageService.findAll());
 		return "messages";
 	}
 	
-	@GetMapping("/messages/new")
-	public String newMessage(@ModelAttribute("message") Message message){
-		return "newMessage";
-	}
-	
-	@PostMapping("/messages")
+	@PostMapping("/messages/new")
 	public String saveMessage(@ModelAttribute("message") Message message) {
 		messageService.save(message);
-		return "redirect:messages";
+		return "redirect:";
 	}
+	
+	@PostMapping("/messages/filter")
+	public String filterMessages(
+			@RequestParam String filter,
+			@ModelAttribute("message") Message message,
+			Model model) {
+		
+		model.addAttribute("messages", messageService.findByTagLike(filter));
+		System.out.println("Найти по данному фильтры - "+filter);
+		return "messages";
+	}
+	
+	
 }
