@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:each="m : ${messages}">
+		
+		<span th:text="${m.getId()} + ': '"></span>
+		<span th:text="${m.getText()} + '-'"></span>
+		<span th:text="${m.getTag()}"></span>
+	
+	</div>
+	
+	<div>
+		<form th:action="@{/messages/new}" method="get">
+			<input type="submit" value="Добавить новое сообщение!">
+	
+		</form>	
+	</div>
+
+</body>
+</html>
