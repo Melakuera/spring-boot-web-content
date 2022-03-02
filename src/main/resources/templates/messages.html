@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<div>
@@ -15,15 +16,16 @@
 		</form>	
 	</div>
 	
-	<br>
-
 	<h1>Список сообщений: </h1>	
+	
 	<div>
 		<form th:action="@{/messages/filter}" method="post">
 			<input type="text" name="filter" placeholder="Отфильтрововать">
 			<input type="submit" value="Искать!">
 		</form>
 	</div>
+	
+	<br>
 	
 	<div th:each="m : ${messages}">
 		
@@ -32,13 +34,5 @@
 		<span th:text="${m.getTag()}"></span>
 	
 	</div>
-	
-	<!-- <div>
-		<form th:action="@{/messages/new}" method="post">
-			<input type="submit" value="Добавить новое сообщение!">
-	
-		</form>	
-	</div> -->
-
 </body>
 </html>

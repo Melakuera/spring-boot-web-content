@@ -21,10 +21,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.4'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.6.4'
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.4'
-
-	
-	
-	
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 tasks.named('test') {

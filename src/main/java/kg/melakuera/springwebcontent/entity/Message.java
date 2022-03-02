@@ -1,6 +1,7 @@
 package kg.melakuera.springwebcontent.entity;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,9 +20,19 @@ public class Message {
 
 	@Column(name="tag")
 	private String tag;
+	
+	public Message(String text, String tag) {
+		this.text = text;
+		this.tag = tag;
+	}
+	
+	public Message() {}
+	
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", text=" + text + ", tag=" + tag + "]";
+	}
 
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -45,8 +56,6 @@ public class Message {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-	
-	
-	
+
 	
 }

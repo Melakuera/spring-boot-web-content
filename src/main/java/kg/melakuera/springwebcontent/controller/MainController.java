@@ -1,5 +1,7 @@
 package kg.melakuera.springwebcontent.controller;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,20 +16,14 @@ import kg.melakuera.springwebcontent.service.MessageService;
 @Controller
 public class MainController {
 	
+	private static final Logger log = Logger.getLogger(MainController.class.getName());
+	
 	private final MessageService messageService;
 	
 	@Autowired
 	public MainController(MessageService messageService) {
-		super();
 		this.messageService = messageService;
 	}
-
-	/*
-	 * @GetMapping("/greeting") public String greeting(
-	 * 
-	 * @RequestParam(name="name", required=false, defaultValue="World" ) String
-	 * name, Model model) { model.addAttribute("name", name); return "greeting"; }
-	 */
 	
 	@GetMapping("/messages")
 	public String findAll(Model model, @ModelAttribute("message") Message message){
@@ -48,9 +44,9 @@ public class MainController {
 			Model model) {
 		
 		model.addAttribute("messages", messageService.findByTagLike(filter));
-		System.out.println("Найти по данному фильтры - "+filter);
+		if (filter != null && !filter.isEmpty()) {
+			log.info("Фильтр поиска сообщении по тегу - "+filter);
+		}
 		return "messages";
 	}
-	
-	
 }
