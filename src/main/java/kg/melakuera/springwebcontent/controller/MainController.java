@@ -49,4 +49,9 @@ public class MainController {
 		}
 		return "messages";
 	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
 }

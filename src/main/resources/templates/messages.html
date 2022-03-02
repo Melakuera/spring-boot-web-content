@@ -34,5 +34,11 @@
 		<span th:text="${m.getTag()}"></span>
 	
 	</div>
+	<br>
+	<form th:action="@{/logout}" method="POST">
+   		<button type="submit">Выйти!</button>
+    </form>
+    <br>
+	<a href="/">Назад...</a>
 </body>
 </html>
