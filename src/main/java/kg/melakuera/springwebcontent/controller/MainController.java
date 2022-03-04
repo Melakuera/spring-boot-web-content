@@ -1,7 +1,5 @@
 package kg.melakuera.springwebcontent.controller;
 
-import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kg.melakuera.springwebcontent.entity.Message;
 import kg.melakuera.springwebcontent.service.MessageService;
+import lombok.extern.java.Log;
 
 @Controller
+@Log
 public class MainController {
-	
-	private static final Logger log = Logger.getLogger(MainController.class.getName());
 	
 	private final MessageService messageService;
 	
@@ -41,11 +39,10 @@ public class MainController {
 	public String filterMessages(
 			@RequestParam String filter,
 			@ModelAttribute("message") Message message,
-			Model model) {
-		
+			Model model) {	
 		model.addAttribute("messages", messageService.findByTagLike(filter));
 		if (filter != null && !filter.isEmpty()) {
-			log.info("Фильтр поиска сообщении по тегу - "+filter);
+			log.info(String.format("Фильтрация сообщении по тегу - %s",filter));
 		}
 		return "messages";
 	}

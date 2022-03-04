@@ -1,23 +1,35 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Spring Security Example </title>
-    </head>
-    <body>
-        <div style="color: red;" th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> 
-            User Name: <input type="text" name="username"/> 
-            </label></div>
-            <br>
-            <div><label> 
-            Password: <input type="password" name="password"/> 
-            </label></div>
-            <br>
-            <div><input type="submit" value="Войти!"/></div>
-        </form>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Sign in</title>
+</head>
+<body>
+	<div>
+		<h1>Авторизация</h1>
+		<div style="color: red;" th:if="${param.error}">Invalid username or password.</div>
+		<form th:action="@{/login}" method="post">
+			<div>
+				<label> User Name: <input type="text" name="username" />
+				</label>
+			</div>
+			<br>
+			<div>
+				<label> Password: <input type="password" name="password" />
+				</label>
+			</div>
+			<br>
+			<div>
+				<input type="submit" value="Войти!" />
+			</div>
+		</form>
+	</div>
+	<br>
+	<div>
+		<form th:action="@{/sign-up}" method="GET">
+			<input type="submit" value="Создать нового пользователя!" />
+		</form>
+	</div>
+</body>
 </html>
