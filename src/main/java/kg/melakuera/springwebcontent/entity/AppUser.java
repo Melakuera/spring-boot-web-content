@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class AppUser implements UserDetails{
 
 	private static final long serialVersionUID = 7849270137156829571L;
@@ -26,7 +28,7 @@ public class AppUser implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String username;
+	private String name;
 	private String email;
 	private String password;
 	@Enumerated(EnumType.STRING)
@@ -34,14 +36,12 @@ public class AppUser implements UserDetails{
 	private Boolean locked;
 	private Boolean enabled;
 
-	public AppUser(String username, String email, String password, 
-			Role role, Boolean locked, Boolean enabled) {
-		this.username = username;
+	public AppUser(String name, String email, String password, 
+			Role role) {
+		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.role = role;
-		this.locked = locked;
-		this.enabled = enabled;
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class AppUser implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		return username;
+		return email;
 	}
 
 	@Override
@@ -79,6 +79,4 @@ public class AppUser implements UserDetails{
 	public boolean isEnabled() {
 		return enabled;
 	}
-	
-	
 }

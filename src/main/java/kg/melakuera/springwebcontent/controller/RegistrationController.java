@@ -8,6 +8,8 @@ import kg.melakuera.springwebcontent.dto.RegistrationRequestDto;
 import kg.melakuera.springwebcontent.service.RegistrationService;
 import lombok.AllArgsConstructor;
 
+import java.util.Map;
+
 @RestController
 @AllArgsConstructor
 public class RegistrationController {
@@ -15,9 +17,9 @@ public class RegistrationController {
 	private final RegistrationService registrationService;
 	
 	@PostMapping("/register")
-	public String register(@RequestBody RegistrationRequestDto request) {
+	public Map<String, String> register(@RequestBody RegistrationRequestDto request) {
 		return registrationService.register(request);
-		
 	}
+
 	
 }
