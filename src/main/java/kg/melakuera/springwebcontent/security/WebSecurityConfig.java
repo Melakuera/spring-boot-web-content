@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import kg.melakuera.springwebcontent.service.AppUserService;
-import lombok.AllArgsConstructor;
 
 @Configuration
 @EnableWebSecurity

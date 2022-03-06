@@ -5,25 +5,20 @@ import org.springframework.stereotype.Service;
 import kg.melakuera.springwebcontent.dto.RegistrationRequestDto;
 import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.entity.Role;
-import kg.melakuera.springwebcontent.util.EmailValidator;
+import kg.melakuera.springwebcontent.util.AppValidator;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 
 @Service
 @AllArgsConstructor
-@Log
 public class RegistrationService {
 	
 	private final AppUserService appUserService;
-	private final EmailValidator emailValidator;
+	private final AppValidator appValidator;
 
 	public String register(RegistrationRequestDto request) {
 		String email = request.getEmail();
-		Boolean result = emailValidator.validateEmail(email);
-		if (result) {
-			log.info(String.format("Эл. почта %s прошла валидацию", email));
-		} else {
-			log.info(String.format("Эл. почта %s не прошла валидацию", email));
+		Boolean result = appValidator.validateEmail(email);
+		if (!result) {
 			return String.format("Эл. почта %s не прошла валидацию", email);
 		}
 		return appUserService.save(new AppUser(
@@ -33,7 +28,7 @@ public class RegistrationService {
 				request.getPassword(),
 				Role.ROLE_USER,
 				true,
-				false
+				true
 				));
 	}
 }
