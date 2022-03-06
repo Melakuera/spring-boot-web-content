@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import java.util.Collections;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,7 +29,10 @@ public class AppUser implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	@Column(name = "first_name")
+	private String firstName;
+	@Column(name = "last_name")
+	private String lastName;
 	private String email;
 	private String password;
 	@Enumerated(EnumType.STRING)
@@ -36,12 +40,15 @@ public class AppUser implements UserDetails{
 	private Boolean locked;
 	private Boolean enabled;
 
-	public AppUser(String name, String email, String password, 
-			Role role) {
-		this.name = name;
+	public AppUser(String firstName, String lastName, String email, String password, 
+			Role role, Boolean locked, Boolean enabled) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.role = role;
+		this.locked = locked;
+		this.enabled = enabled;
 	}
 
 	@Override
@@ -77,6 +84,6 @@ public class AppUser implements UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		return enabled;
+		return !enabled;
 	}
 }
