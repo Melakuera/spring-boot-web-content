@@ -1,24 +1,34 @@
 package kg.melakuera.springwebcontent.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import kg.melakuera.springwebcontent.dto.RegistrationRequestDto;
 import kg.melakuera.springwebcontent.service.RegistrationService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
+@Controller
 @AllArgsConstructor
 public class RegistrationController {
 	
 	private final RegistrationService registrationService;
 	
-	@PostMapping("/register")
-	public String register(@RequestBody RegistrationRequestDto request) {
-		return registrationService.register(request);
+	@GetMapping("/register")
+	public String registrationPage() {
+		return "register";
 	}
-
 	
+	@PostMapping("/register")
+	public String register(RegistrationRequestDto request, Model model) {
+		boolean result = registrationService.register(request);
+		if (!result) {
+			model.addAttribute("error_msg", String.format("Эл. почта %s не прошла валидацию", request.getEmail()));
+			return "/register";
+		}
+		return "redirect:/login";
+	}
 }

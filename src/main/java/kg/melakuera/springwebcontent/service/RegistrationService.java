@@ -1,5 +1,6 @@
 package kg.melakuera.springwebcontent.service;
 
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import kg.melakuera.springwebcontent.dto.RegistrationRequestDto;
@@ -10,18 +11,20 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@Log
 public class RegistrationService {
 	
 	private final AppUserService appUserService;
 	private final AppValidator appValidator;
 
-	public String register(RegistrationRequestDto request) {
+	public boolean register(RegistrationRequestDto request) {
 		String email = request.getEmail();
-		Boolean result = appValidator.validateEmail(email);
+		boolean result = appValidator.validateEmail(email);
 		if (!result) {
-			return String.format("Эл. почта %s не прошла валидацию", email);
+			log.info(String.format("Данная %s эл. почта не прошел валидацию", email));
+			return false;
 		}
-		return appUserService.save(new AppUser(
+		appUserService.save(new AppUser(
 				request.getFirstName(),
 				request.getLastName(),
 				request.getEmail(),
@@ -29,6 +32,8 @@ public class RegistrationService {
 				Role.ROLE_USER,
 				true,
 				true
-				));
+		));
+		log.info("Пользователь зарегистрирован");
+		return true;
 	}
 }

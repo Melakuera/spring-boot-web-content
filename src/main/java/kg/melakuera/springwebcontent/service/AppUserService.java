@@ -1,5 +1,6 @@
 package kg.melakuera.springwebcontent.service;
 
+import lombok.extern.java.Log;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@Log
 public class AppUserService implements UserDetailsService {
 	
 	private final AppUserRepository appUserRepository;
@@ -24,13 +26,12 @@ public class AppUserService implements UserDetailsService {
 						String.format("Пользователь с данной %s эл. почтой не найден", email)));
 	}
 	
-	public String save(AppUser appUser) {
+	public void save(AppUser appUser) {
 		boolean user =  appUserRepository.findByEmail(appUser.getEmail()).isPresent();
 		if (user) {
-			return "Такой пользователь существует";
+			log.info("Такой пользователь уже сущесвует!");
 		}
 		appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
 		appUserRepository.save(appUser);
-		return "Пользователь зарегистрирован";
 	}
 }
