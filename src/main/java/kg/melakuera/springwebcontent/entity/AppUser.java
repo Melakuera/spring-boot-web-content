@@ -14,7 +14,6 @@ import java.util.Objects;
 @Entity(name = "user")
 @Getter
 @Setter
-@ToString
 public class AppUser implements UserDetails{
 
 	@Id
@@ -90,4 +89,12 @@ public class AppUser implements UserDetails{
 	public int hashCode() {
 		return getClass().hashCode();
 	}
+
+	@Override
+	public String toString() {
+		return "AppUser [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + "]";
+	}
+	
+	
 }

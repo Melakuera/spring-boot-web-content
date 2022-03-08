@@ -8,7 +8,7 @@
 <body>
 	<div>
 		<h1>Авторизация</h1>
-		<div style="color: red;" th:if="${param.error}">Invalid username or password.</div>
+		<div style="color: red;" th:if="${param.error}">Эл. почта или пароль введен неправильно!</div>
 		<form th:action="@{/login}" method="post">
 			<div>
 				<label> User Name: <input type="text" name="username" />

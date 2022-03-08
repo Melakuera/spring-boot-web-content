@@ -19,12 +19,12 @@ public class RegistrationService {
 
 	public boolean register(RegistrationRequestDto request) {
 		String email = request.getEmail();
-		boolean result = appValidator.validateEmail(email);
-		if (!result) {
-			log.info(String.format("Данная %s эл. почта не прошел валидацию", email));
+		boolean validateResult = appValidator.validateEmail(email);
+		if (!validateResult) {
+			log.info(String.format("Данная %s эл. почта не прошла валидацию", email));
 			return false;
 		}
-		appUserService.save(new AppUser(
+		AppUser appUser = new AppUser(
 				request.getFirstName(),
 				request.getLastName(),
 				request.getEmail(),
@@ -32,8 +32,12 @@ public class RegistrationService {
 				Role.ROLE_USER,
 				true,
 				true
-		));
-		log.info("Пользователь зарегистрирован");
+		);
+		boolean saveResult = appUserService.save(appUser);
+		if (!saveResult) {
+			return false;
+		}
+		log.info(String.format("Данный пользователь %s зарегистрирован", appUser));
 		return true;
 	}
 }

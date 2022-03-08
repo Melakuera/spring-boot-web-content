@@ -26,12 +26,14 @@ public class AppUserService implements UserDetailsService {
 						String.format("Пользователь с данной %s эл. почтой не найден", email)));
 	}
 	
-	public void save(AppUser appUser) {
+	public boolean save(AppUser appUser) {
 		boolean user =  appUserRepository.findByEmail(appUser.getEmail()).isPresent();
 		if (user) {
 			log.info("Такой пользователь уже сущесвует!");
+			return false;
 		}
 		appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
 		appUserRepository.save(appUser);
+		return true;
 	}
 }

@@ -7,6 +7,10 @@
 </head>
 <body>
 	<h1>Регистрация</h1>
+	<div style="color: red;" th:if="${error_msg}">
+		<p> Либо такой пользователь уже сущесвует, либо веденная эл. почта не прошла валидацию! </p>
+		<p> Пожалуйста попробуйте еще раз</p>
+	</div>
 	<form th:action="@{/register}" method="post">
 		<div>
 			<label> First name: <input type="text" name="firstName" />
@@ -29,8 +33,12 @@
 		</div>
 		<br>
 		<div>
-			<input type="submit" value="Войти!" />
+			<input type="submit" value="Регистрация!" />
 		</div>
+	</form>
+	<br>
+	<form action="/login" method="get">
+		<input type="submit" value="Назад!">
 	</form>
 
 </body>
