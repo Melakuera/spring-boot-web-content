@@ -11,9 +11,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-@Entity(name = "user")
+@Entity
 @Getter
 @Setter
+@ToString
 public class AppUser implements UserDetails{
 
 	@Id
@@ -88,13 +89,5 @@ public class AppUser implements UserDetails{
 	@Override
 	public int hashCode() {
 		return getClass().hashCode();
-	}
-
-	@Override
-	public String toString() {
-		return "AppUser [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + "]";
-	}
-	
-	
+	}	
 }

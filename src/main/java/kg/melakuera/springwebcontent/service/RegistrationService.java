@@ -30,8 +30,8 @@ public class RegistrationService {
 				request.getEmail(),
 				request.getPassword(),
 				Role.ROLE_USER,
-				true,
-				true
+				false,
+				false
 		);
 		boolean saveResult = appUserService.save(appUser);
 		if (!saveResult) {

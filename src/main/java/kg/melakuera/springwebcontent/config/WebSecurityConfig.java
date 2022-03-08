@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/", "/register").permitAll()
+				.antMatchers("/", "/register", "/confirm").permitAll()
 			.anyRequest()
 				.authenticated()
 			.and()
@@ -69,7 +69,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.ignoring()
 			.antMatchers("/resources/**", "/static/**", "/css/**", "/img/**");
 	}
-	
-	
-	
 }
