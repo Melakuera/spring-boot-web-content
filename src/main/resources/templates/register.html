@@ -3,32 +3,34 @@
 	xmlns:th="https://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
+<meta charset="UTF-8">
 <title>Sign up</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<h1>Регистрация</h1>
 	<div style="color: red;" th:if="${error_msg}">
-		<p> Либо такой пользователь уже сущесвует, либо веденная эл. почта не прошла валидацию! </p>
+		<p> Либо такой пользователь уже сущесвует, либо <br> веденная эл. почта не прошла валидацию! </p>
 		<p> Пожалуйста попробуйте еще раз</p>
 	</div>
 	<form th:action="@{/register}" method="post">
 		<div>
-			<label> First name: <input type="text" name="firstName" />
+			<label> Имя: <input type="text" name="firstName" />
 			</label>
 		</div>
 		<br>
 		<div>
-			<label> Last name: <input type="text" name="lastName" />
+			<label> Фамилия: <input type="text" name="lastName" />
 			</label>
 		</div>
 		<br>
 		<div>
-			<label> Email: <input type="text" name="email" />
+			<label> Эл. почта: <input type="text" name="email" />
 			</label>
 		</div>
 		<br>
 		<div>
-			<label> Password: <input type="password" name="password" />
+			<label> Пароль: <input type="password" name="password" />
 			</label>
 		</div>
 		<br>

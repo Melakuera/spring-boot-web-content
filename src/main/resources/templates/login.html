@@ -3,7 +3,9 @@
 	xmlns:th="https://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
+<meta charset="UTF-8">
 <title>Sign in</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<div>
@@ -11,12 +13,12 @@
 		<div style="color: red;" th:if="${param.error}">Эл. почта или пароль введен неправильно!</div>
 		<form th:action="@{/login}" method="post">
 			<div>
-				<label> User Name: <input type="text" name="username" />
+				<label> Эл. почта: <input type="text" name="username" />
 				</label>
 			</div>
 			<br>
 			<div>
-				<label> Password: <input type="password" name="password" />
+				<label> Пароль: <input type="password" name="password" />
 				</label>
 			</div>
 			<br>

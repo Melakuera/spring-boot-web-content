@@ -3,3 +3,9 @@
 body {
 	margin: 30px		
 }
+
+label {
+	display: inline-block;
+	width: 200px;
+	text-align: left;
+}
