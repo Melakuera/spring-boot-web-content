@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "app_user")
 @Getter
 @Setter
 @ToString

@@ -1,18 +1,17 @@
 package kg.melakuera.springwebcontent.entity;
 
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import lombok.Data;
-
-@Data
-@Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Entity(name = "confirmation_email")
 public class ConfirmationEmail {
 	
 	@Id
@@ -33,6 +32,17 @@ public class ConfirmationEmail {
 		this.expiredAt = expiredAt;
 		this.appUser = appUser;
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		ConfirmationEmail that = (ConfirmationEmail) o;
+		return id != null && Objects.equals(id, that.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }

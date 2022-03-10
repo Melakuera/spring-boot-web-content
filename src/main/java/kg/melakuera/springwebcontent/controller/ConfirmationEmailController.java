@@ -21,10 +21,10 @@ public class ConfirmationEmailController {
 		return "emailConfirm";
 	}
 	
-	@PostMapping("/confirm")
-	public String confirm(@RequestParam String email) {
-		appUserService.confirm(email);
-		
-		return "redirect:/login";
-	}
+//	@PostMapping("/confirm")
+//	public String confirm(@RequestParam String email) {
+//		appUserService.confirm(email);
+//
+//		return "redirect:/login";
+//	}
 }

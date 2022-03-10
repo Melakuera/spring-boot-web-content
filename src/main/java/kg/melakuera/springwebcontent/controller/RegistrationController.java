@@ -1,14 +1,13 @@
 package kg.melakuera.springwebcontent.controller;
 
+import kg.melakuera.springwebcontent.dto.RegistrationRequestDto;
+import kg.melakuera.springwebcontent.service.RegistrationService;
+import kg.melakuera.springwebcontent.util.AppMailSender;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import kg.melakuera.springwebcontent.dto.RegistrationRequestDto;
-import kg.melakuera.springwebcontent.service.RegistrationService;
-import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor

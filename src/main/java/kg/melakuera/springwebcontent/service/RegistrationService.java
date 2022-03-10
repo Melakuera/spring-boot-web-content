@@ -1,5 +1,6 @@
 package kg.melakuera.springwebcontent.service;
 
+import kg.melakuera.springwebcontent.util.AppMailSender;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class RegistrationService {
 	
 	private final AppUserService appUserService;
 	private final AppValidator appValidator;
+	private final AppMailSender appMailSender;
 
 	public boolean register(RegistrationRequestDto request) {
 		String email = request.getEmail();
@@ -37,6 +39,9 @@ public class RegistrationService {
 		if (!saveResult) {
 			return false;
 		}
+		appMailSender.send(request.getEmail(), request.getFirstName());
+
+		log.info("Письмо отправлено на почту "+ request.getEmail());
 		log.info(String.format("Данный пользователь %s зарегистрирован", appUser));
 		return true;
 	}
