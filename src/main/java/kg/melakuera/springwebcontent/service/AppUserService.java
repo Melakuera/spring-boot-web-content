@@ -1,22 +1,15 @@
 package kg.melakuera.springwebcontent.service;
 
-import kg.melakuera.springwebcontent.util.AppMailSender;
+import kg.melakuera.springwebcontent.entity.AppUser;
+import kg.melakuera.springwebcontent.repository.AppUserRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.UUID;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import kg.melakuera.springwebcontent.entity.AppUser;
-import kg.melakuera.springwebcontent.repository.AppUserRepository;
-import lombok.AllArgsConstructor;
 
 @Service
 @Transactional
@@ -37,8 +30,8 @@ public class AppUserService implements UserDetailsService {
 	public boolean save(AppUser appUser) {
 		boolean user =  appUserRepository.findByEmail(appUser.getEmail()).isPresent();
 		if (user) {
+
 			log.info("Такой пользователь уже сущесвует!");
-			
 			return false;
 		}
 
@@ -47,12 +40,4 @@ public class AppUserService implements UserDetailsService {
 
 		return true;
 	}
-
-//	public void confirm(String email) {
-//		AppUser appUser = appUserRepository.findByEmail(email)
-//				.orElseThrow(() -> new IllegalStateException(String.format("Пользователь с данной %s эл. почтой не найден", email)));
-//
-//		appUser.setLocked(true);
-//		appUser.setEnabled(true);
-//	}
 }

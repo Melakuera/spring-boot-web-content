@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-@Entity(name = "app_user")
+@Entity
 @Getter
 @Setter
 @ToString
@@ -26,17 +26,15 @@ public class AppUser implements UserDetails{
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	private Boolean locked;
 	private Boolean enabled;
 
 	public AppUser(String firstName, String lastName, String email, String password, 
-			Role role, Boolean locked, Boolean enabled) {
+			Role role, Boolean enabled) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.role = role;
-		this.locked = locked;
 		this.enabled = enabled;
 	}
 
@@ -65,7 +63,7 @@ public class AppUser implements UserDetails{
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return locked;
+		return true;
 	}
 
 	@Override

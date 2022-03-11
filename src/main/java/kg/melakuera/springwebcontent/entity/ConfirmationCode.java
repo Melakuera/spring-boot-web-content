@@ -11,23 +11,22 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Entity(name = "confirmation_email")
-public class ConfirmationEmail {
+@Entity(name = "confirmation_code")
+public class ConfirmationCode {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String token;
+	private String code;
 	private LocalDateTime createdAt;
 	private LocalDateTime expiredAt;
-	private LocalDateTime confirmedAt;
-	@ManyToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "app_user_id")
 	private AppUser appUser;
 
-	public ConfirmationEmail(String token, LocalDateTime createdAt, 
-			LocalDateTime expiredAt, AppUser appUser) {
-		this.token = token;
+	public ConfirmationCode(String code, LocalDateTime createdAt,
+							LocalDateTime expiredAt, AppUser appUser) {
+		this.code = code;
 		this.createdAt = createdAt;
 		this.expiredAt = expiredAt;
 		this.appUser = appUser;
@@ -37,7 +36,7 @@ public class ConfirmationEmail {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-		ConfirmationEmail that = (ConfirmationEmail) o;
+		ConfirmationCode that = (ConfirmationCode) o;
 		return id != null && Objects.equals(id, that.id);
 	}
 

@@ -1,5 +1,6 @@
 package kg.melakuera.springwebcontent.util;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -11,13 +12,13 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Component
+@AllArgsConstructor
 @Log
 public class AppMailSender {
 
-    @Autowired
     private JavaMailSender mailSender;
 
-    public void send(String to, String name) {
+    public void send(String to, String firstName, String lastName, String code) {
         try {
             MimeMessage mailMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mailMessage, true);
@@ -25,8 +26,9 @@ public class AppMailSender {
             helper.setSubject("Код активации");
             helper.setText(String.format(
                     "<h1> Код активации </h1>" +
-                    "<p> Уважаемый %s! Пожалуйста перейдите по <a href='http://localhost:8080/login'>этой</a> ссылке</p>",
-            name), true);
+                    "<p> Уважаемый %s %s! " +
+                    "Пожалуйста перейдите по <a href='http://localhost:8080/confirm?code=%s' >этой </a> ссылке </p>",
+                    lastName, firstName, code), true);
             // Вложение не видно в одноразовых почтах
             helper.addAttachment("pistol_mem.jpg", new ClassPathResource("static/img/pistol_mem.jpg"));
 
