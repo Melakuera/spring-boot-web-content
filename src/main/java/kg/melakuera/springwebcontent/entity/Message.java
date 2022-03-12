@@ -1,61 +1,44 @@
 package kg.melakuera.springwebcontent.entity;
 
-import javax.persistence.Column;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
+
 
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class Message {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
-	
-	@Column(name="text")
+	private Long id;
 	private String text;
-
-	@Column(name="tag")
 	private String tag;
-	
-	public Message(String text, String tag) {
+	@ManyToOne
+	@JoinColumn(name = "app_user_id")
+	private AppUser appUser;
+
+	public Message(String text, String tag, AppUser appUser) {
 		this.text = text;
 		this.tag = tag;
+		this.appUser = appUser;
 	}
-	
-	public Message() {}
-	
+
 	@Override
-	public String toString() {
-		return "Message [id=" + id + ", text=" + text + ", tag=" + tag + "]";
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		Message message = (Message) o;
+		return id != null && Objects.equals(id, message.id);
 	}
 
-	public int getId() {
-		return id;
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	
 }

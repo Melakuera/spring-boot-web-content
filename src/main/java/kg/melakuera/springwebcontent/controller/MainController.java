@@ -1,9 +1,11 @@
 package kg.melakuera.springwebcontent.controller;
 
+import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.entity.Message;
 import kg.melakuera.springwebcontent.service.MessageService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +31,11 @@ public class MainController {
 	}
 	
 	@PostMapping("/messages/new")
-	public String saveMessage(@ModelAttribute("message") Message message) {
-		messageService.save(message);
+	public String saveMessage(
+			@ModelAttribute("message") Message message,
+			@AuthenticationPrincipal AppUser appUser) {
+		Message msg = new Message(message.getText(), message.getTag(), appUser);
+		messageService.save(msg);
 		return "redirect:";
 	}
 	

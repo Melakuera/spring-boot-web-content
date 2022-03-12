@@ -1,6 +1,7 @@
 package kg.melakuera.springwebcontent.service;
 
 import kg.melakuera.springwebcontent.entity.AppUser;
+import kg.melakuera.springwebcontent.entity.Message;
 import kg.melakuera.springwebcontent.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -10,6 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional

@@ -5,16 +5,16 @@ import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class AppUser implements UserDetails{
 
 	@Id
@@ -27,6 +27,8 @@ public class AppUser implements UserDetails{
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	private Boolean enabled;
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Message> messages;
 
 	public AppUser(String firstName, String lastName, String email, String password, 
 			Role role, Boolean enabled) {
@@ -37,8 +39,6 @@ public class AppUser implements UserDetails{
 		this.role = role;
 		this.enabled = enabled;
 	}
-
-	public AppUser() {}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

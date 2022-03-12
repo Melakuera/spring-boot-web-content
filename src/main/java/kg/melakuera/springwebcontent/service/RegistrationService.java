@@ -56,7 +56,8 @@ public class RegistrationService {
 				LocalDateTime.now().plusSeconds(45),
 				appUser);
 		confirmationCodeRepository.save(confirmationCode);
-		appMailSender.send(request.getEmail(), code);
+		Thread thread = new Thread(() -> appMailSender.send(request.getEmail(), code));
+		thread.start();
 
 		log.info("Письмо отправлено на почту "+ request.getEmail());
 		log.info(String.format("Данный пользователь %s зарегистрирован", appUser));

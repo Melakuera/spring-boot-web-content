@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<div>
@@ -31,7 +31,8 @@
 		
 		<span th:text="${m.getId()} + ': '"></span>
 		<span th:text="${m.getText()} + ' - '"></span>
-		<span th:text="${m.getTag()}"></span>
+		<span th:text="${m.getTag()} + ' - '"></span>
+		<span th:text="${m.getAppUser().getFirstName()}"></span>
 	
 	</div>
 	<br>
