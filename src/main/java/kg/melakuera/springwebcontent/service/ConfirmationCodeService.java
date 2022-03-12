@@ -19,19 +19,19 @@ public class ConfirmationCodeService {
     private ConfirmationCodeRepository confirmationCodeRepository;
     private AppUserRepository appUserRepository;
 
-    public int confirm(String code) {
+    public boolean confirm(String code) {
         ConfirmationCode confirmationCode = confirmationCodeRepository.findByCode(code)
                 .orElse(null);
         assert confirmationCode != null;
         if (confirmationCode.getExpiredAt().isBefore(LocalDateTime.now())) {
 
             log.info("Истекло время подтверждение пользователя!");
-            return 0;
+            return false;
         }
         String email = confirmationCode.getAppUser().getEmail();
         appUserRepository.updateEnabled(email);
 
         log.info(String.format("Пользователь c данной эл. почтой %s подтвержден!", email));
-        return 1;
+        return true;
     }
 }

@@ -15,17 +15,8 @@ public class ConfirmationCodeController {
     //http://localhost:8080/confirm?code={code}
     @GetMapping("/confirm")
     public String confirmationPage(@RequestParam(name = "code") String code, Model model){
-        int result = confirmationCodeService.confirm(code);
-        switch (result) {
-            case 0:
-                model.addAttribute("false_result_msg", true);
-                model.addAttribute("true_result_msg", false);
-                return "confirmationFalse";
-            case 1:
-                model.addAttribute("true_result_msg", true);
-                model.addAttribute("false_result_msg", false);
-                return "confirmationTrue";
-        }
-        return "#";
+        boolean result = confirmationCodeService.confirm(code);
+        model.addAttribute("result_msg", result);
+        return "confirmation";
     }
 }

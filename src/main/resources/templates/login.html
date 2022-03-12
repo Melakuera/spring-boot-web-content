@@ -10,7 +10,10 @@
 <body>
 	<div>
 		<h1>Авторизация</h1>
-		<div style="color: red;" th:if="${param.error}">Либо эл. почта или пароль введен неправильно, <br> либо эл. почта не подтверждена</div>
+		<div style="color: red;" th:if="${param.error}">
+			<p> Либо эл. почта или пароль введен неправильно, <br> либо эл. почта не подтверждена </p>
+			<p> Пожалуйста попробуйте еще раз</p>
+		</div>
 		<form th:action="@{/login}" method="post">
 			<div>
 				<label> Эл. почта: <input type="text" name="username" />
@@ -31,12 +34,6 @@
 	<div>
 		<form th:action="@{/register}" method="get">
 			<input type="submit" value="Создать нового пользователя!" />
-		</form>
-	</div>
-	<br>
-	<div>
-		<form th:action="@{/confirm}" method="get">
-			<input type="submit" value="Подтвердить пользователя!" />
 		</form>
 	</div>
 </body>

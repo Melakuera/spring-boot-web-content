@@ -2,7 +2,6 @@ package kg.melakuera.springwebcontent.util;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -18,7 +17,7 @@ public class AppMailSender {
 
     private JavaMailSender mailSender;
 
-    public void send(String to, String firstName, String lastName, String code) {
+    public void send(String to, String code) {
         try {
             MimeMessage mailMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mailMessage, true);
@@ -26,12 +25,9 @@ public class AppMailSender {
             helper.setSubject("Код активации");
             helper.setText(String.format(
                     "<h1> Код активации </h1>" +
-                    "<p> Уважаемый %s %s! " +
-                    "Пожалуйста перейдите по <a href='http://localhost:8080/confirm?code=%s' >этой </a> ссылке </p>",
-                    lastName, firstName, code), true);
-            // Вложение не видно в одноразовых почтах
-            helper.addAttachment("pistol_mem.jpg", new ClassPathResource("static/img/pistol_mem.jpg"));
-
+                    "Пожалуйста перейдите по <a href='http://localhost:8080/confirm?code=%s' >этой </a> ссылке </p>" +
+                    "<img src='img/pistol_mem.jpg' alt='kek'>",
+                    code), true);
             mailSender.send(mailMessage);
         } catch (MessagingException e) {
             e.getCause();
