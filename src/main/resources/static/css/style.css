@@ -9,3 +9,9 @@ label {
 	width: 200px;
 	text-align: left;
 }
+tr th {
+	padding: 10px;
+}
+tr td {
+	padding: 10px;
+}

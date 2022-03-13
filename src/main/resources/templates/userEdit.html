@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение пользователя</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <p th:text="${user.getId()}"></p>
+    <form th:method="post" th:action="@{/user/{id}(id=${user.getId()})}" th:object="${user}">
+        <label> Имя: <input type="text" th:field="*{firstName}">
+        </label>
+        <br><br>
+        <label> Фамилия: <input type="text" th:field="*{lastName}">
+        </label>
+        <br><br>
+        <label> Роль:
+            <select th:field="*{role}">
+                <option th:each="role : ${roles}"
+                        th:value="${role}"
+                        th:text="${role.name()}"></option>
+            </select>
+        </label>
+        <br><br>
+        <button type="submit">Изменить!</button>
+    </form>
+    <br>
+    <form action="/users" method="get">
+        <input type="submit" value="Назад!">
+    </form>
+</body>
+</html>

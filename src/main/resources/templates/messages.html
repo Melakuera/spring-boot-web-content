@@ -6,6 +6,12 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+	<div th:if="${user}">
+		<form action="/users" method="get">
+			<button type="submit">Список пользователей</button>
+		</form>
+	</div>
+	<br>
 	<div>
 		<form th:action="@{/messages/new}" method="post" th:object="${message}">
 		

@@ -44,7 +44,7 @@ public class RegistrationService {
 				Role.ROLE_USER,
 				false
 		);
-		boolean saveResult = appUserService.save(appUser);
+		boolean saveResult = appUserService.register(appUser);
 		if (!saveResult) {
 			return false;
 		}
@@ -53,7 +53,7 @@ public class RegistrationService {
 		ConfirmationCode confirmationCode = new ConfirmationCode(
 				code,
 				LocalDateTime.now(),
-				LocalDateTime.now().plusSeconds(45),
+				LocalDateTime.now().plusMinutes(1),
 				appUser);
 		confirmationCodeRepository.save(confirmationCode);
 		Thread thread = new Thread(() -> appMailSender.send(request.getEmail(), code));

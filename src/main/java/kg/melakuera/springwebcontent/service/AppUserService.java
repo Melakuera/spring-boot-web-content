@@ -1,7 +1,7 @@
 package kg.melakuera.springwebcontent.service;
 
 import kg.melakuera.springwebcontent.entity.AppUser;
-import kg.melakuera.springwebcontent.entity.Message;
+import kg.melakuera.springwebcontent.entity.Role;
 import kg.melakuera.springwebcontent.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +30,7 @@ public class AppUserService implements UserDetailsService {
 						String.format("Пользователь с данной %s эл. почтой не найден", email)));
 	}
 	
-	public boolean save(AppUser appUser) {
+	public boolean register(AppUser appUser) {
 		boolean user =  appUserRepository.findByEmail(appUser.getEmail()).isPresent();
 		if (user) {
 
@@ -44,4 +43,24 @@ public class AppUserService implements UserDetailsService {
 
 		return true;
 	}
+
+	public List<AppUser> findAll() {
+		return appUserRepository.findAll();
+	}
+
+	public AppUser findById(Long id) {
+		return appUserRepository.findById(id).orElse(null);
+	}
+
+	public void update(AppUser appUser, Long id) {
+		AppUser updatingAppUser = appUserRepository.findById(id).orElse(null);
+		assert updatingAppUser != null;
+		updatingAppUser.setFirstName(appUser.getFirstName());
+		updatingAppUser.setLastName(appUser.getLastName());
+		updatingAppUser.setRole(appUser.getRole());
+	}
+	public boolean isAdmin(AppUser appUser){
+		return appUser.getRole().equals(Role.ROLE_ADMIN);
+	}
+
 }
