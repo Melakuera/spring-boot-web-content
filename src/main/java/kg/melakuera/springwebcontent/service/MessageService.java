@@ -1,15 +1,12 @@
 package kg.melakuera.springwebcontent.service;
 
-import java.util.List;
-
-import kg.melakuera.springwebcontent.entity.AppUser;
+import kg.melakuera.springwebcontent.entity.Message;
+import kg.melakuera.springwebcontent.repository.MessageRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kg.melakuera.springwebcontent.entity.Message;
-import kg.melakuera.springwebcontent.repository.MessageRepository;
+import java.util.List;
 
 @Service
 @AllArgsConstructor

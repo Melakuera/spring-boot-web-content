@@ -2,7 +2,6 @@ package kg.melakuera.springwebcontent.util;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;

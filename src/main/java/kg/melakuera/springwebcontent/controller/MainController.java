@@ -6,7 +6,6 @@ import kg.melakuera.springwebcontent.service.AppUserService;
 import kg.melakuera.springwebcontent.service.MessageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,8 +45,10 @@ public class MainController {
 	public String filterMessages(
 			@RequestParam String filter,
 			@ModelAttribute("message") Message message,
-			Model model) {	
+			@AuthenticationPrincipal AppUser appUser,
+			Model model) {
 		model.addAttribute("messages", messageService.findByTagLike(filter));
+		model.addAttribute("user", appUserService.isAdmin(appUser));
 		if (filter != null && !filter.isEmpty()) {
 			log.info(String.format("Фильтрация сообщении по тегу - %s",filter));
 		}
