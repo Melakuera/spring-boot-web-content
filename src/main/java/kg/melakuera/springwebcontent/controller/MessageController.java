@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @AllArgsConstructor
 @Log
-public class MainController {
+public class MessageController {
 	
 	private final MessageService messageService;
 	private final AppUserService appUserService;
@@ -53,10 +53,5 @@ public class MainController {
 			log.info(String.format("Фильтрация сообщении по тегу - %s",filter));
 		}
 		return "messages";
-	}
-	
-	@GetMapping("/login")
-	public String login() {
-		return "login";
 	}
 }
