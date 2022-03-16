@@ -5,7 +5,6 @@ import kg.melakuera.springwebcontent.entity.Message;
 import kg.melakuera.springwebcontent.service.AppUserService;
 import kg.melakuera.springwebcontent.service.MessageService;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @AllArgsConstructor
-@Log
 public class MessageController {
-	
-	private final MessageService messageService;
-	private final AppUserService appUserService;
+
+	private MessageService messageService;
+	private AppUserService appUserService;
 
 	@GetMapping("/messages")
 	public String findAll(
@@ -29,15 +28,17 @@ public class MessageController {
 			@AuthenticationPrincipal AppUser appUser){
 		model.addAttribute("messages", messageService.findAll());
 		model.addAttribute("user", appUserService.isAdmin(appUser));
+
 		return "messages";
 	}
 	
 	@PostMapping("/messages/new")
 	public String saveMessage(
 			@ModelAttribute("message") Message message,
-			@AuthenticationPrincipal AppUser appUser) {
-		Message msg = new Message(message.getText(), message.getTag(), appUser);
-		messageService.save(msg);
+			@AuthenticationPrincipal AppUser appUser,
+			@RequestParam("file") MultipartFile file) {
+		messageService.save(message, appUser, file);
+		
 		return "redirect:";
 	}
 	
@@ -49,9 +50,7 @@ public class MessageController {
 			Model model) {
 		model.addAttribute("messages", messageService.findByTagLike(filter));
 		model.addAttribute("user", appUserService.isAdmin(appUser));
-		if (filter != null && !filter.isEmpty()) {
-			log.info(String.format("Фильтрация сообщении по тегу - %s",filter));
-		}
+		
 		return "messages";
 	}
 }

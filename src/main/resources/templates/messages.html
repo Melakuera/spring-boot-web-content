@@ -13,10 +13,11 @@
 	</div>
 	<br>
 	<div>
-		<form th:action="@{/messages/new}" method="post" th:object="${message}">
+		<form th:action="@{/messages/new}" method="post" th:object="${message}" enctype="multipart/form-data">
 		
 			<input type="text" th:field="*{text}" placeholder="Введите сообщение">
 			<input type="text" th:field="*{tag}" placeholder="Введите тег">
+			<input type="file" name="file">
 			<input type="submit" value="Добавить!">
 	
 		</form>	
@@ -39,7 +40,9 @@
 		<span th:text="${m.getText()} + ' - '"></span>
 		<span th:text="${m.getTag()} + ' - '"></span>
 		<span th:text="${m.getAppUser().getFirstName()}"></span>
-	
+		<div th:if="${m.getFileName() != null}">
+			<img th:src="@{/msg/{fileName}(fileName=${m.getFileName()})}" alt="kek" width="170"/>
+		</div>
 	</div>
 	<br>
 	<form th:action="@{/logout}" method="POST">

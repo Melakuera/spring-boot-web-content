@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import kg.melakuera.springwebcontent.entity.Message;
 
-public interface MessageRepository extends JpaRepository<Message, Long>{
-	
+public interface MessageRepository extends JpaRepository<Message, Long> {
+
 	@Query("SELECT m FROM Message m WHERE m.tag LIKE ?1%")
 	List<Message> findByTagLike(String s);
 }

@@ -25,6 +25,7 @@ public class Message {
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
 	private AppUser appUser;
+	private String fileName;
 
 	public Message(String text, String tag, AppUser appUser) {
 		this.text = text;
