@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Сообщения</title>
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -17,13 +17,13 @@
 		
 			<input type="text" th:field="*{text}" placeholder="Введите сообщение">
 			<input type="text" th:field="*{tag}" placeholder="Введите тег">
-			<input type="file" name="file">
+			<input type="file" accept="image/*" name="file">
 			<input type="submit" value="Добавить!">
 	
 		</form>	
 	</div>
 	
-	<h1>Список сообщений: </h1>	
+	<h1>Список сообщений: </h1>
 	
 	<div>
 		<form th:action="@{/messages/filter}" method="post">

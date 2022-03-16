@@ -19,6 +19,7 @@ public class AdminController {
     @GetMapping("/users")
     public String getAll(Model model) {
         model.addAttribute("users", appUserService.findAll());
+
         return "users";
     }
 
@@ -26,12 +27,14 @@ public class AdminController {
     public String getOne(Model model, @PathVariable Long id) {
         model.addAttribute("user", appUserService.findById(id));
         model.addAttribute("roles", Role.values());
+
         return "userEdit";
     }
 
     @PostMapping("/user/{id}")
     public String update(@ModelAttribute("user") AppUser appUser, @PathVariable Long id) {
         appUserService.update(appUser, id);
+
         return "redirect:/users";
     }
 }

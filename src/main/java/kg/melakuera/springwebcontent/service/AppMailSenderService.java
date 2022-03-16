@@ -1,4 +1,4 @@
-package kg.melakuera.springwebcontent.util;
+package kg.melakuera.springwebcontent.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -12,7 +12,7 @@ import javax.mail.internet.MimeMessage;
 @Component
 @AllArgsConstructor
 @Log
-public class AppMailSender {
+public class AppMailSenderService {
 
     private JavaMailSender mailSender;
 
@@ -29,7 +29,7 @@ public class AppMailSender {
                     code), true);
             mailSender.send(mailMessage);
         } catch (MessagingException e) {
-            e.getCause();
+            e.printStackTrace();
             log.info("Ошибка отправки сообщения");
         }
     }

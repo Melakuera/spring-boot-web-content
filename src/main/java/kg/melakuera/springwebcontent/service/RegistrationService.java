@@ -2,14 +2,12 @@ package kg.melakuera.springwebcontent.service;
 
 import kg.melakuera.springwebcontent.entity.ConfirmationCode;
 import kg.melakuera.springwebcontent.repository.ConfirmationCodeRepository;
-import kg.melakuera.springwebcontent.util.AppMailSender;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import kg.melakuera.springwebcontent.dto.RegistrationRequestDto;
 import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.entity.Role;
-import kg.melakuera.springwebcontent.util.AppValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +21,8 @@ import java.util.UUID;
 public class RegistrationService {
 	
 	private final AppUserService appUserService;
-	private final AppValidator appValidator;
-	private final AppMailSender appMailSender;
+	private final AppValidatorService appValidator;
+	private final AppMailSenderService appMailSender;
 	private final ConfirmationCodeRepository confirmationCodeRepository;
 
 	public boolean 	register(RegistrationRequestDto request) {

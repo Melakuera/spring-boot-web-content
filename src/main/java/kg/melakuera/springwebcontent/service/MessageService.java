@@ -25,10 +25,6 @@ public class MessageService {
 		return messageRepository.findAll();
 	}
 	
-	public void save(Message message){
-		messageRepository.save(message);
-	}
-	
 	public List<Message> findByTagLike(String filter){
 		if (filter != null && !filter.isEmpty()) {
 			log.info(String.format("Фильтрация сообщении по тегу - %s",filter));
@@ -41,6 +37,7 @@ public class MessageService {
 		if (!file.isEmpty()) {
 			msg.setFileName(fileUploadService.upload(file));
 		}
+		log.info(String.format("Данное сообщение %s сохранен", msg));
 		messageRepository.save(msg);
 	}
 }

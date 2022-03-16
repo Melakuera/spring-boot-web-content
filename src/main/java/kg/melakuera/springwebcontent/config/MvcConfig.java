@@ -9,6 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
+	@Value("${upload.path}")
+	private String path;
+
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");
@@ -18,6 +21,6 @@ public class MvcConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/msg/**").addResourceLocations(
 				// из проперти файла не получается
-				"file:///E:/JavaProjects/spring-web-content/uploads/");
+				"file:///" + path + "/");
 	}
 }

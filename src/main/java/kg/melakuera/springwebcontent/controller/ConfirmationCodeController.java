@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ConfirmationCodeController {
 
     private ConfirmationCodeService confirmationCodeService;
-    //http://localhost:8080/confirm?code={code}
+
     @GetMapping("/confirm")
     public String confirmationPage(@RequestParam(name = "code") String code, Model model){
         boolean result = confirmationCodeService.confirm(code);
         model.addAttribute("result_msg", result);
+
         return "confirmation";
     }
 }
