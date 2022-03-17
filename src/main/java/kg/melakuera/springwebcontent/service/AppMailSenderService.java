@@ -23,9 +23,7 @@ public class AppMailSenderService {
             helper.setTo(to);
             helper.setSubject("Код активации");
             helper.setText(String.format(
-                    "<h1> Код активации </h1>" +
-                    "Пожалуйста перейдите по <a href='http://localhost:8080/confirm?code=%s' >этой </a> ссылке </p>" +
-                    "<img src='/img/pistol_mem.jpg' alt='kek'>",
+                    "Пожалуйста перейдите по <a href='http://localhost:8080/confirm?code=%s'> этой </a> ссылке </p>",
                     code), true);
             mailSender.send(mailMessage);
         } catch (MessagingException e) {

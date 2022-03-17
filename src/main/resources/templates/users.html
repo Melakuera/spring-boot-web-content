@@ -8,34 +8,34 @@
 </head>
 <body>
 
-    <h1>Список всех пользователей</h1>
-    <table>
+<h1>Список всех пользователей</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Эл. почта</th>
+        <th>Роли</th>
+        <th></th>
+    </tr>
+    <div th:each="u : ${users}">
         <tr>
-            <th>Id</th>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Эл. почта</th>
-            <th>Роли</th>
-            <th></th>
+            <td th:text="${u.getId()}"></td>
+            <td th:text="${u.getFirstName()}"></td>
+            <td th:text="${u.getLastName()}"></td>
+            <td th:text="${u.getEmail()}"></td>
+            <td th:text="${u.getRole()}"></td>
+            <td>
+                <form th:action="@{/user/{id}(id=${u.getId()})}">
+                    <input type="submit" value="Изменить!">
+                </form>
+            </td>
         </tr>
-        <div th:each="u : ${users}">
-            <tr>
-                <td th:text="${u.getId()}"></td>
-                <td th:text="${u.getFirstName()}"></td>
-                <td th:text="${u.getLastName()}"></td>
-                <td th:text="${u.getEmail()}"></td>
-                <td th:text="${u.getRole()}"></td>
-                <td>
-                    <form th:action="@{/user/{id}(id=${u.getId()})}">
-                        <input type="submit" value="Изменить!">
-                    </form>
-                </td>
-            </tr>
-        </div>
-    </table>
-    <br>
-    <form action="/messages" method="get">
-        <input type="submit" value="Назад!">
-    </form>
+    </div>
+</table>
+<br>
+<form action="/messages" method="get">
+    <input type="submit" value="Назад!">
+</form>
 </body>
 </html>
