@@ -21,24 +21,17 @@ import java.util.UUID;
 public class RegistrationService {
 	
 	private final AppUserService appUserService;
-	private final AppValidatorService appValidator;
 	private final AppMailSenderService appMailSender;
 	private final ConfirmationCodeRepository confirmationCodeRepository;
 
-	public boolean 	register(RegistrationRequestDto request) {
-		// Валидация
-		String email = request.getEmail();
-		boolean validateResult = appValidator.validateEmail(email);
-		if (!validateResult) {
-			log.info(String.format("Данная %s эл. почта не прошла валидацию", email));
-			return false;
-		}
+	public boolean 	register(AppUser formAppUser) {
+
 		// Сохранение юзера в бд
 		AppUser appUser = new AppUser(
-				request.getFirstName(),
-				request.getLastName(),
-				request.getEmail(),
-				request.getPassword(),
+				formAppUser.getFirstName(),
+				formAppUser.getLastName(),
+				formAppUser.getEmail(),
+				formAppUser.getPassword(),
 				Role.ROLE_USER,
 				false
 		);
@@ -54,10 +47,10 @@ public class RegistrationService {
 				LocalDateTime.now().plusMinutes(1),
 				appUser);
 		confirmationCodeRepository.save(confirmationCode);
-		Thread thread = new Thread(() -> appMailSender.send(request.getEmail(), code));
+		Thread thread = new Thread(() -> appMailSender.send(formAppUser.getEmail(), code));
 		thread.start();
 
-		log.info("Письмо отправлено на почту "+ request.getEmail());
+		log.info("Письмо отправлено на почту "+ formAppUser.getEmail());
 		log.info(String.format("Данный пользователь %s зарегистрирован", appUser));
 		return true;
 	}

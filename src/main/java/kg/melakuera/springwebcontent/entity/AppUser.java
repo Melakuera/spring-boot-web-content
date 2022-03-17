@@ -10,6 +10,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -25,13 +28,25 @@ public class AppUser implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Size(min = 2, max = 30, message = "Длина имени не может быть меньше 2 и больше 30 символов")
 	private String firstName;
+
+	@Size(min = 2, max = 30, message = "Длина имени не может быть меньше 2 и больше 30 символов")
 	private String lastName;
+
+	@Email(message = "Эл. почта не соответствует формату: yourname@email.com")
+	@NotBlank(message = "Эл. почта не соответствует формату: yourname@email.com")
 	private String email;
+
+	@NotBlank(message = "Пароль не может быть пустым")
 	private String password;
+
 	@Enumerated(EnumType.STRING)
 	private Role role;
+
 	private Boolean enabled;
+
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Message> messages;
 

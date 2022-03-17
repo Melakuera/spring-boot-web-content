@@ -1,47 +1,73 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="https://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:th="https://www.thymeleaf.org"
+      lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Регистрация</title>
-<link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-	<h1>Регистрация</h1>
-	<div style="color: red;" th:if="${error_msg}">
-		<p> Либо такой пользователь уже сущесвует, либо <br> веденная эл. почта не прошла валидацию! </p>
-		<p> Пожалуйста попробуйте еще раз</p>
-	</div>
-	<form th:action="@{/register}" method="post">
-		<div>
-			<label> Имя: <input type="text" name="firstName" />
-			</label>
-		</div>
-		<br>
-		<div>
-			<label> Фамилия: <input type="text" name="lastName" />
-			</label>
-		</div>
-		<br>
-		<div>
-			<label> Эл. почта: <input type="text" name="email" />
-			</label>
-		</div>
-		<br>
-		<div>
-			<label> Пароль: <input type="password" name="password" />
-			</label>
-		</div>
-		<br>
-		<div>
-			<input type="submit" value="Регистрация!" />
-		</div>
-	</form>
-	<br>
-	<form action="/login" method="get">
-		<input type="submit" value="Назад!">
-	</form>
+<h1>Регистрация</h1>
+<div class="error-msg" th:if="${error_msg}">
+    <p> Такой пользователь уже сущесвует! <br>
+        Пожалуйста попробуйте еще раз</p>
 
+</div>
+<form action="/register" method="post" th:object="${appUser}">
+    <table>
+        <tr>
+            <td>Имя:</td>
+            <td>
+                <input type="text" th:field="*{firstName}" name="firstName"/>
+            </td>
+            <td>
+                <span class="error-msg"
+                      th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Фамилия:</td>
+            <td>
+                <input type="text" th:field="*{lastName}" name="lastName"/>
+            </td>
+            <td>
+                <span class="error-msg"
+                      th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Эл. почта:</td>
+            <td>
+                <input type="text" th:field="*{email}" name="email"/>
+            </td>
+            <td>
+                <span class="error-msg"
+                      th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Пароль:</td>
+            <td>
+                <input type="password" th:field="*{password}" name="password"/>
+            </td>
+            <td>
+                <span class="error-msg"
+                      th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <input type="submit" value="Регистрация!"/>
+</form>
+
+<br>
+
+<form action="/login" method="get">
+    <input type="submit" value="Назад!">
+</form>
 </body>
 </html>
