@@ -5,7 +5,6 @@ import kg.melakuera.springwebcontent.repository.ConfirmationCodeRepository;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
-import kg.melakuera.springwebcontent.dto.RegistrationRequestDto;
 import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.entity.Role;
 import lombok.AllArgsConstructor;
