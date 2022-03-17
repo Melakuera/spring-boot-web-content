@@ -5,8 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 
@@ -20,11 +22,17 @@ public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotBlank(message = "Пожалуйста заполните текст сообщения")
+	@Length(message = "Краткость - сестра таланта", max = 1024)
 	private String text;
+
 	private String tag;
+
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
 	private AppUser appUser;
+
 	private String fileName;
 
 	public Message(String text, String tag, AppUser appUser) {

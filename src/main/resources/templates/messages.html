@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+	<meta charset="UTF-8">
 <title>Сообщения</title>
-<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<div th:if="${user}">
@@ -13,13 +13,42 @@
 	</div>
 	<br>
 	<div>
-		<form th:action="@{/messages/new}" method="post" th:object="${message}" enctype="multipart/form-data">
-		
-			<input type="text" th:field="*{text}" placeholder="Введите сообщение">
-			<input type="text" th:field="*{tag}" placeholder="Введите тег">
-			<input type="file" accept="image/*" name="file">
+		<form action="/messages/new" method="post" th:object="${message}" enctype="multipart/form-data">
+			
+			<table>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+				
+				<tr>
+					<td>Сообщение:</td>
+					<td>
+						<input type="text" th:field="*{text}" placeholder="Введите сообщение">
+					</td>
+					<td>
+						<span class="error-msg" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text error</span>
+					</td>					
+				</tr>
+				
+				<tr>
+					<td>Тег:</td>
+					<td>
+						<input type="text" th:field="*{tag}" placeholder="Введите тег">
+					</td>
+					<td></td>					
+				</tr>
+				
+				<tr>
+					<td>Изображение:</td>
+					<td>
+						<input type="file" accept="image/*" name="file">
+					</td>
+					<td></td>					
+				</tr>			
+			</table>
 			<input type="submit" value="Добавить!">
-	
 		</form>	
 	</div>
 	
