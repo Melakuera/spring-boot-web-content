@@ -1,41 +1,49 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="https://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	  xmlns:th="https://www.thymeleaf.org"
+	  lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Авторизация</title>
-<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<title>Авторизация</title>
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-	<div>
-		<h1>Авторизация</h1>
-		<div style="color: red;" th:if="${param.error}">
-			<p> Либо эл. почта или пароль введен неправильно, <br> либо эл. почта не подтверждена </p>
-			<p> Пожалуйста попробуйте еще раз</p>
-		</div>
-		<form action="/login" method="post">
-			<div>
-				<label> Эл. почта: <input type="text" name="username" />
-				</label>
-			</div>
-			<br>
-			<div>
-				<label> Пароль: <input type="password" name="password" />
-				</label>
-			</div>
-			<br>
-			<div>
-				<input type="submit" value="Войти!" />
-			</div>
-		</form>
+<div>
+	<h1>Авторизация</h1>
+	<div class="error-msg" th:if="${param.error}">
+		<p> Либо эл. почта или пароль введен неправильно, <br>
+			либо эл. почта не подтверждена! <br>
+			Пожалуйста попробуйте еще раз </p>
 	</div>
-	<br>
-	<div>
-		<form th:action="@{/register}" method="get">
-			<input type="submit" value="Создать нового пользователя!" />
-		</form>
-	</div>
-	<script src="/js/script.js"></script>
+	<form action="/login" method="post">
+		<table>
+			<tr>
+				<td>
+					Эл. почта:
+				</td>
+				<td>
+					<input type="text" name="username"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Пароль:
+				</td>
+				<td>
+					<input type="password" name="password"/>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<input type="submit" value="Войти!"/>
+	</form>
+</div>
+<br>
+<div>
+	<form action="/register" method="get">
+		<input type="submit" value="Создать нового пользователя!"/>
+	</form>
+</div>
+<script src="/js/script.js"></script>
 </body>
 </html>

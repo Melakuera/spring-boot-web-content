@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<table>
+    <tr>
+        <td>Id:</td>
+        <td>
+            <p th:text="${foundUser.getId()}"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>Имя:</td>
+        <td>
+            <p th:text="${foundUser.getFirstName()}"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>Фамилия:</td>
+        <td>
+            <p th:text="${foundUser.getLastName()}"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>Эл. почта:</td>
+        <td>
+            <p th:text="${foundUser.getEmail()}"></p>
+        </td>
+    </tr>
+</table>
+
+<div th:if="${foundUser.getEmail()} == ${user.getEmail()}">
+    <form th:action="@{/settings/{email}(email=${user.getEmail()})}" method="get">
+        <button>Изменить!</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Настройки</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<form th:action="@{/settings/{id}(id=${appUser.getId()})}" method="post" th:object="${appUser}">
+    <table>
+        <tr>
+            <td>Имя:</td>
+            <td>
+                <input type="text" th:field="*{firstName}" name="firstName"/>
+            </td>
+            <td>
+                <span class="error-msg"
+                      th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Фамилия:</td>
+            <td>
+                <input type="text" th:field="*{lastName}" name="lastName"/>
+            </td>
+            <td>
+                <span class="error-msg"
+                      th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" th:field="*{email}">
+    <input type="hidden" th:field="*{password}">
+    <button type="submit">Изменить!</button>
+</form>
+
+</body>
+</html>

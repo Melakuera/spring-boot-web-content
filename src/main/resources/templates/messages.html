@@ -68,7 +68,8 @@
 		<span th:text="${m.getId()} + ': '"></span>
 		<span th:text="${m.getText()} + ' - '"></span>
 		<span th:text="${m.getTag()} + ' - '"></span>
-		<span th:text="${m.getAppUser().getFirstName()}"></span>
+		<span> <a th:href="@{/profile/{firstName}(firstName=${m.getAppUser().getEmail()})}"
+				 th:text="${m.getAppUser().getFirstName()}"></a> </span>
 		<div th:if="${m.getFileName() != null}">
 			<img th:src="@{/msg/{fileName}(fileName=${m.getFileName()})}" alt="kek" width="170"/>
 		</div>

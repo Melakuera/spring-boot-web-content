@@ -32,7 +32,7 @@ public class AppUser implements UserDetails{
 	@Size(min = 2, max = 30, message = "Длина имени не может быть меньше 2 и больше 30 символов")
 	private String firstName;
 
-	@Size(min = 2, max = 30, message = "Длина имени не может быть меньше 2 и больше 30 символов")
+	@Size(min = 2, max = 30, message = "Длина фамилии не может быть меньше 2 и больше 30 символов")
 	private String lastName;
 
 	@Email(message = "Эл. почта не соответствует формату: yourname@email.com")

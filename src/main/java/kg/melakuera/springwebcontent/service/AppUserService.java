@@ -52,15 +52,26 @@ public class AppUserService implements UserDetailsService {
 		return appUserRepository.findById(id).orElse(null);
 	}
 
+	public AppUser findByEmail(String email) {
+		return appUserRepository.findByEmail(email).orElse(null);
+	}
+
+	public boolean isAdmin(AppUser appUser){
+		return appUser.getRole().equals(Role.ROLE_ADMIN);
+	}
+
 	public void update(AppUser appUser, Long id) {
+		AppUser updatedAppUser = appUserRepository.findById(id).orElse(null);
+		assert updatedAppUser != null;
+		updatedAppUser.setFirstName(appUser.getFirstName());
+		updatedAppUser.setLastName(appUser.getLastName());
+	}
+
+	public void updateByAdmin(AppUser appUser, Long id) {
 		AppUser updatingAppUser = appUserRepository.findById(id).orElse(null);
 		assert updatingAppUser != null;
 		updatingAppUser.setFirstName(appUser.getFirstName());
 		updatingAppUser.setLastName(appUser.getLastName());
 		updatingAppUser.setRole(appUser.getRole());
 	}
-	public boolean isAdmin(AppUser appUser){
-		return appUser.getRole().equals(Role.ROLE_ADMIN);
-	}
-
 }
