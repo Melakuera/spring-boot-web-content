@@ -8,6 +8,7 @@
 </head>
 <body>
 <table>
+
     <tr>
         <td>Id:</td>
         <td>
@@ -35,8 +36,14 @@
 </table>
 
 <div th:if="${foundUser.getEmail()} == ${user.getEmail()}">
-    <form th:action="@{/settings/{email}(email=${user.getEmail()})}" method="get">
-        <button>Изменить!</button>
+    <form th:action="@{/settings/{email}(email=${user.getId()})}" method="get">
+        <button>Настройки!</button>
+    </form>
+</div>
+<br>
+<div>
+    <form action="/messages" method="get">
+        <button>Назад!</button>
     </form>
 </div>
 </body>

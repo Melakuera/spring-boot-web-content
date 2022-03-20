@@ -1,20 +1,21 @@
 create table app_user
 (
-    id         bigint       not null auto_increment,
-    first_name varchar(255) not null,
-    last_name  varchar(255) not null,
-    email      varchar(255) not null,
-    password   varchar(255) not null,
-    role       varchar(255) not null,
-    enabled    bit,
+    id                  bigint       not null auto_increment,
+    first_name          varchar(255) not null,
+    last_name           varchar(255) not null,
+    email               varchar(255) not null,
+    password            varchar(255) not null,
+    role                varchar(255) not null,
+    reset_password_code varchar(255),
+    enabled             bit,
     primary key (id)
-) engine=MyISAM;
+) engine = MyISAM;
 
 create table app_user_messages
 (
     app_user_id bigint not null,
     messages_id bigint not null
-) engine=MyISAM;
+) engine = MyISAM;
 
 create table confirmation_code
 (
@@ -24,7 +25,7 @@ create table confirmation_code
     expired_at  datetime,
     app_user_id bigint,
     primary key (id)
-) engine=MyISAM;
+) engine = MyISAM;
 
 create table message
 (
@@ -34,7 +35,7 @@ create table message
     text        varchar(1024) not null,
     app_user_id bigint,
     primary key (id)
-) engine=MyISAM;
+) engine = MyISAM;
 
 alter table app_user_messages
     add constraint UK_il0aeh1ovhi8mnw4o6u8i5929 unique (messages_id);
@@ -60,5 +61,5 @@ alter table message
             references app_user (id);
 
 insert into app_user (first_name, last_name, email, password, role, enabled)
-values ('Эльдияр', 'Муса', 'musabaeveldiar@gmail.com', 
+values ('Эльдияр', 'Муса', 'musabaeveldiar@gmail.com',
         '$2a$12$3leiaZVW2JNMfU52dCOMsu24N/6.dF8L6Nlh6GFd2LCsn5E4Utv3u', 'ROLE_ADMIN', true);

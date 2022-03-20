@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -22,6 +23,7 @@ public class AppUserService implements UserDetailsService {
 	
 	private final AppUserRepository appUserRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final AppMailSenderService appMailSenderService;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -52,13 +54,14 @@ public class AppUserService implements UserDetailsService {
 		return appUserRepository.findById(id).orElse(null);
 	}
 
-	public AppUser findByEmail(String email) {
-		return appUserRepository.findByEmail(email).orElse(null);
-	}
-
 	public boolean isAdmin(AppUser appUser){
 		return appUser.getRole().equals(Role.ROLE_ADMIN);
 	}
+
+	public AppUser findByResetPasswordCode(String code) {
+		return appUserRepository.findByResetPasswordCode(code).orElse(null);
+	}
+
 
 	public void update(AppUser appUser, Long id) {
 		AppUser updatedAppUser = appUserRepository.findById(id).orElse(null);
@@ -73,5 +76,26 @@ public class AppUserService implements UserDetailsService {
 		updatingAppUser.setFirstName(appUser.getFirstName());
 		updatingAppUser.setLastName(appUser.getLastName());
 		updatingAppUser.setRole(appUser.getRole());
+	}
+
+	public void resetPassword(Long id) {
+		AppUser appUser = appUserRepository.findById(id).orElse(null);
+		String code = UUID.randomUUID().toString();
+		assert appUser != null;
+		appUser.setResetPasswordCode(code);
+		Thread thread = new Thread(() -> appMailSenderService.sendResetPassword(appUser));
+		thread.start();
+
+		log.info("Запрос на сброс пароля отправил пользователь с id: " + id);
+	}
+
+	public boolean updatePassword(AppUser appUser, String pw1, String pw2) {
+		if (!pw1.equals(pw2)) {
+			return false;
+		}
+		appUser.setPassword(bCryptPasswordEncoder.encode(pw1));
+
+		log.info(String.format("Пароль пользователя %s успешно изменён", appUser.getEmail()));
+		return true;
 	}
 }

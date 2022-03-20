@@ -1,84 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
-	<meta charset="UTF-8">
-<title>Сообщения</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <meta charset="UTF-8">
+    <title>Сообщения</title>
 </head>
 <body>
-	<div th:if="${user}">
-		<form action="/users" method="get">
-			<button type="submit">Список пользователей</button>
-		</form>
-	</div>
-	<br>
-	<div>
-		<form action="/messages/new" method="post" th:object="${message}" enctype="multipart/form-data">
-			
-			<table>
-				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-				
-				<tr>
-					<td>Сообщение:</td>
-					<td>
-						<input type="text" th:field="*{text}" placeholder="Введите сообщение">
-					</td>
-					<td>
-						<span class="error-msg" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text error</span>
-					</td>					
-				</tr>
-				
-				<tr>
-					<td>Тег:</td>
-					<td>
-						<input type="text" th:field="*{tag}" placeholder="Введите тег">
-					</td>
-					<td></td>					
-				</tr>
-				
-				<tr>
-					<td>Изображение:</td>
-					<td>
-						<input type="file" accept="image/*" name="file">
-					</td>
-					<td></td>					
-				</tr>			
-			</table>
-			<input type="submit" value="Добавить!">
-		</form>	
-	</div>
-	
-	<h1>Список сообщений: </h1>
-	
-	<div>
-		<form th:action="@{/messages/filter}" method="post">
-			<input type="text" name="filter" placeholder="Отфильтрововать">
-			<input type="submit" value="Искать!">
-		</form>
-	</div>
-	
-	<br>
-	
-	<div th:each="m : ${messages}">
-		
-		<span th:text="${m.getId()} + ': '"></span>
-		<span th:text="${m.getText()} + ' - '"></span>
-		<span th:text="${m.getTag()} + ' - '"></span>
-		<span> <a th:href="@{/profile/{firstName}(firstName=${m.getAppUser().getEmail()})}"
-				 th:text="${m.getAppUser().getFirstName()}"></a> </span>
-		<div th:if="${m.getFileName() != null}">
-			<img th:src="@{/msg/{fileName}(fileName=${m.getFileName()})}" alt="kek" width="170"/>
-		</div>
-	</div>
-	<br>
-	<form th:action="@{/logout}" method="POST">
-   		<button type="submit">Выйти!</button>
+<div>
+    <form th:action="@{/profile/{id}(id=${user.getId()})}">
+        <button type="submit">Перейти к профилю!</button>
     </form>
-    <br>
-	<a href="/">Назад...</a>
+</div>
+<br>
+<div th:if="${user.getRole().name().equals('ROLE_ADMIN')}">
+    <form action="/users" method="get">
+        <button type="submit">Список пользователей</button>
+    </form>
+</div>
+<br>
+<div>
+    <form action="/messages/new" method="post" th:object="${message}" enctype="multipart/form-data">
+
+        <table>
+            <tr>
+                <td>Сообщение:</td>
+                <td>
+                    <input type="text" th:field="*{text}" placeholder="Введите сообщение">
+                </td>
+                <td>
+                    <span class="error-msg" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text error</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Тег:</td>
+                <td>
+                    <input type="text" th:field="*{tag}" placeholder="Введите тег">
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Изображение:</td>
+                <td>
+                    <input type="file" accept="image/*" name="file">
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <input type="submit" value="Добавить!">
+    </form>
+</div>
+
+<h1>Список сообщений: </h1>
+
+<div>
+    <form th:action="@{/messages/filter}" method="post">
+        <input type="text" name="filter" placeholder="Отфильтрововать">
+        <input type="submit" value="Искать!">
+    </form>
+</div>
+
+<br>
+
+<div th:each="m : ${messages}">
+
+    <span th:text="${m.getId()} + ': '"></span>
+    <span th:text="${m.getText()} + ' - '"></span>
+    <span th:text="${m.getTag()} + ' - '"></span>
+    <span> <a th:href="@{/profile/{firstName}(firstName=${m.getAppUser().getId()})}"
+              th:text="${m.getAppUser().getFirstName()}"></a> </span>
+    <div th:if="${m.getFileName() != null}">
+        <img th:src="@{/msg/{fileName}(fileName=${m.getFileName()})}" alt="kek" width="170"/>
+    </div>
+</div>
+<br>
+<form th:action="@{/logout}" method="POST">
+    <button type="submit">Выйти!</button>
+</form>
+<br>
+<a href="/">Назад...</a>
 </body>
 </html>

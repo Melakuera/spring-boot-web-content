@@ -1,7 +1,10 @@
 package kg.melakuera.springwebcontent.controller;
 
-import javax.validation.Valid;
-
+import kg.melakuera.springwebcontent.entity.AppUser;
+import kg.melakuera.springwebcontent.entity.Message;
+import kg.melakuera.springwebcontent.service.AppUserService;
+import kg.melakuera.springwebcontent.service.MessageService;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import kg.melakuera.springwebcontent.entity.AppUser;
-import kg.melakuera.springwebcontent.entity.Message;
-import kg.melakuera.springwebcontent.service.AppUserService;
-import kg.melakuera.springwebcontent.service.MessageService;
-import lombok.AllArgsConstructor;
+import javax.validation.Valid;
 
 @Controller
 @AllArgsConstructor
@@ -31,7 +30,7 @@ public class MessageController {
 			@ModelAttribute("message") Message message,
 			@AuthenticationPrincipal AppUser appUser){
 		model.addAttribute("messages", messageService.findAll());
-		model.addAttribute("user", appUserService.isAdmin(appUser));
+		model.addAttribute("user", appUser);
 
 		return "messages";
 	}
@@ -45,7 +44,7 @@ public class MessageController {
 			Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("messages", messageService.findAll());
-			model.addAttribute("user", appUserService.isAdmin(appUser));
+			model.addAttribute("user", appUser);
 			
 			return "messages";
 		}
@@ -61,7 +60,7 @@ public class MessageController {
 			@AuthenticationPrincipal AppUser appUser,
 			Model model) {
 		model.addAttribute("messages", messageService.findByTagLike(filter));
-		model.addAttribute("user", appUserService.isAdmin(appUser));
+		model.addAttribute("user", appUser);
 		
 		return "messages";
 	}
