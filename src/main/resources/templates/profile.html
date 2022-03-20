@@ -2,36 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title th:text="${foundUser.getEmail()}"></title>
+    <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
 </head>
 <body>
 <table>
-
     <tr>
         <td>Id:</td>
-        <td>
-            <p th:text="${foundUser.getId()}"></p>
-        </td>
+        <td><p th:text="${foundUser.getId()}"></p></td>
     </tr>
     <tr>
         <td>Имя:</td>
-        <td>
-            <p th:text="${foundUser.getFirstName()}"></p>
-        </td>
+        <td><p th:text="${foundUser.getFirstName()}"></p></td>
     </tr>
     <tr>
         <td>Фамилия:</td>
-        <td>
-            <p th:text="${foundUser.getLastName()}"></p>
-        </td>
+        <td><p th:text="${foundUser.getLastName()}"></p></td>
     </tr>
     <tr>
         <td>Эл. почта:</td>
-        <td>
-            <p th:text="${foundUser.getEmail()}"></p>
-        </td>
+        <td><p th:text="${foundUser.getEmail()}"></p></td>
     </tr>
 </table>
 
@@ -46,5 +36,7 @@
         <button>Назад!</button>
     </form>
 </div>
+
+<div th:insert="fragments :: bootstrap-js"></div>
 </body>
 </html>

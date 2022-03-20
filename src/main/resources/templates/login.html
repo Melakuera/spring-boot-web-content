@@ -3,9 +3,8 @@
 	  xmlns:th="https://www.thymeleaf.org"
 	  lang="ru">
 <head>
-	<meta charset="UTF-8">
 	<title>Авторизация</title>
-	<link rel="stylesheet" href="/css/style.css">
+	<th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
 </head>
 <body>
 <div>
@@ -45,5 +44,6 @@
 	</form>
 </div>
 <script src="/js/script.js"></script>
+<div th:insert="fragments :: bootstrap-js"></div>
 </body>
 </html>

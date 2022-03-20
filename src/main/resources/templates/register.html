@@ -3,9 +3,8 @@
       xmlns:th="https://www.thymeleaf.org"
       lang="ru">
 <head>
-    <meta charset="UTF-8">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
 </head>
 <body>
 <h1>Регистрация</h1>
@@ -66,5 +65,7 @@
 <form action="/login" method="get">
     <input type="submit" value="Назад!">
 </form>
+
+<div th:insert="fragments :: bootstrap-js"></div>
 </body>
 </html>
