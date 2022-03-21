@@ -32,7 +32,7 @@ public class AppUserProfileController {
 	public String settingsUser(
 			@PathVariable("id") Long id,
 			Model model) {
-		model.addAttribute("appUser", appUserService.findById(id));
+		model.addAttribute("user", appUserService.findById(id));
 
 		return "settings";
 	}
@@ -40,7 +40,7 @@ public class AppUserProfileController {
 	@PostMapping("/settings/{id}")
 	public String patchUser(
 			@PathVariable("id") Long id,
-			@ModelAttribute("appUser") @Valid AppUser appUser,
+			@ModelAttribute("user") @Valid AppUser appUser,
 			BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {

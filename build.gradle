@@ -30,7 +30,10 @@ dependencies {
   	implementation 'org.springframework.boot:spring-boot-starter-validation'
   	
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-  	
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.1.0.M1'
+
+
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	

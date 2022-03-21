@@ -5,6 +5,7 @@ import kg.melakuera.springwebcontent.entity.Role;
 import kg.melakuera.springwebcontent.service.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,16 +21,20 @@ public class AdminController {
     private final AppUserService appUserService;
 
     @GetMapping("/users")
-    public String getAll(Model model) {
+    public String getAll(@AuthenticationPrincipal AppUser appUser, Model model) {
         model.addAttribute("users", appUserService.findAll());
+        model.addAttribute("user", appUser);
 
         return "users";
     }
 
     @GetMapping("/user/{id}")
-    public String getOne(Model model, @PathVariable Long id) {
-        model.addAttribute("user", appUserService.findById(id));
+    public String getOne(@AuthenticationPrincipal AppUser appUser,
+                         @PathVariable Long id,
+                         Model model) {
+        model.addAttribute("foundUser", appUserService.findById(id));
         model.addAttribute("roles", Role.values());
+        model.addAttribute("user", appUser);
 
         return "userEdit";
     }

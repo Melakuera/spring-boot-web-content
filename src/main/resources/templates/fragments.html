@@ -19,5 +19,42 @@
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
             crossorigin="anonymous"></script>
 </div>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="/img/messagerLogo.png"
+                     alt="" width="30" height="30" class="d-inline-block align-text-top"> Messeger
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Главное</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/messages">Сообщения</a>
+                    </li>
+                    <div th:if="${user.getRole().name().equals('ROLE_ADMIN')}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Список пользователей</a>
+                        </li>
+                    </div>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Выйти</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/profile/{id}(id=${user.getId()})}"
+                           th:text="${user.getEmail()}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 </body>
 </html>

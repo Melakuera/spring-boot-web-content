@@ -2,20 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Подтверждение</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
 </head>
 <body>
-    <div th:if="${result_msg}">
-        <p>Пользователь подтвержден!</p>
-    </div>
-    <div th:unless="${result_msg}">
-        <p>Истекло время подтверждение пользователя!</p>
-    </div>
+<div th:if="${result_msg}">
+    <p>Пользователь подтвержден!</p>
+</div>
+<div th:unless="${result_msg}">
+    <p>Истекло время подтверждение пользователя!</p>
+</div>
 
-    <form action="/" method="get">
-        <input type="submit" value="Перейти к главной странице!">
-    </form>
+<form action="/" method="get">
+    <input type="submit" value="Перейти к главной странице!">
+</form>
+
+<div th:insert="fragments :: bootstrap-js"></div>
 </body>
 </html>

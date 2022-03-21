@@ -5,28 +5,31 @@
     <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
 </head>
 <body>
-<p th:text="${user.getId()}"></p>
-<form th:method="post" th:action="@{/user/{id}(id=${user.getId()})}" th:object="${user}">
-    <label> Имя: <input type="text" th:field="*{firstName}">
-    </label>
-    <br><br>
-    <label> Фамилия: <input type="text" th:field="*{lastName}">
-    </label>
-    <br><br>
-    <label> Роль:
-        <select th:field="*{role}">
-            <option th:each="role : ${roles}"
-                    th:value="${role}"
-                    th:text="${role.name()}"></option>
-        </select>
-    </label>
-    <br><br>
-    <button type="submit">Изменить!</button>
-</form>
-<br>
-<form action="/users" method="get">
-    <input type="submit" value="Назад!">
-</form>
+<div th:insert="fragments :: navbar"></div>
+<div class="container mt-5">
+    <p th:text="${foundUser.getId()}"></p>
+    <form th:method="post" th:action="@{/user/{id}(id=${foundUser.getId()})}" th:object="${foundUser}">
+        <label> Имя: <input type="text" th:field="*{firstName}">
+        </label>
+        <br><br>
+        <label> Фамилия: <input type="text" th:field="*{lastName}">
+        </label>
+        <br><br>
+        <label> Роль:
+            <select th:field="*{role}">
+                <option th:each="role : ${roles}"
+                        th:value="${role}"
+                        th:text="${role.name()}"></option>
+            </select>
+        </label>
+        <br><br>
+        <button type="submit">Изменить!</button>
+    </form>
+    <br>
+    <form action="/users" method="get">
+        <input type="submit" value="Назад!">
+    </form>
+</div>
 
 <div th:insert="fragments :: bootstrap-js"></div>
 </body>

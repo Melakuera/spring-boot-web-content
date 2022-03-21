@@ -7,64 +7,83 @@
     <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
 </head>
 <body>
-<h1>Регистрация</h1>
-<div class="error-msg" th:if="${error_msg}">
-    <p> Такой пользователь уже сущесвует! <br>
-        Пожалуйста попробуйте еще раз</p>
-
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/img/messagerLogo.png"
+                 alt="" width="30" height="30" class="d-inline-block align-text-top"> Messeger
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Главное</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/messages">Сообщения</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Авторизация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Регистрация</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 </div>
-<form action="/register" method="post" th:object="${appUser}">
-    <table>
-        <tr>
-            <td>Имя:</td>
-            <td>
-                <input type="text" th:field="*{firstName}" name="firstName"/>
-            </td>
-            <td>
+<div class="container mt-5">
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <h1 class="text-center">Регистрация</h1>
+        <div class="text-center" style="color: #f46767" th:if="${error_msg}">
+            <p> Такой пользователь уже сущесвует! <br>
+                Пожалуйста попробуйте еще раз</p>
+        </div>
+        <form action="/register" method="post" th:object="${appUser}">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingName"
+                       placeholder="Имя" th:field="*{firstName}">
+                <label for="floatingName">Имя</label>
                 <span class="error-msg"
-                      th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>Фамилия:</td>
-            <td>
-                <input type="text" th:field="*{lastName}" name="lastName"/>
-            </td>
-            <td>
+                      th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+                </span>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingSurname"
+                       placeholder="Фамилия" th:field="*{lastName}">
+                <label for="floatingSurname">Фамилия</label>
                 <span class="error-msg"
-                      th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>Эл. почта:</td>
-            <td>
-                <input type="text" th:field="*{email}" name="email"/>
-            </td>
-            <td>
+                      th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+                </span>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingEmail"
+                       placeholder="Адрес электронной почты" th:field="*{email}">
+                <label for="floatingEmail">Адрес электронной почты</label>
                 <span class="error-msg"
-                      th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>Пароль:</td>
-            <td>
-                <input type="password" th:field="*{password}" name="password"/>
-            </td>
-            <td>
+                      th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                </span>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword"
+                       placeholder="Пароль" th:field="*{password}">
+                <label for="floatingPassword">Пароль</label>
                 <span class="error-msg"
-                      th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <input type="submit" value="Регистрация!"/>
-</form>
-
-<br>
-
-<form action="/login" method="get">
-    <input type="submit" value="Назад!">
-</form>
+                      th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                </span>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-outline-success">Регистрация</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div th:insert="fragments :: bootstrap-js"></div>
 </body>

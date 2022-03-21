@@ -1,49 +1,74 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="https://www.thymeleaf.org"
-	  lang="ru">
+      xmlns:th="https://www.thymeleaf.org"
+      lang="ru">
 <head>
-	<title>Авторизация</title>
-	<th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
+    <title>Авторизация</title>
+    <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
 </head>
 <body>
 <div>
-	<h1>Авторизация</h1>
-	<div class="error-msg" th:if="${param.error}">
-		<p> Либо эл. почта или пароль введен неправильно, <br>
-			либо эл. почта не подтверждена! <br>
-			Пожалуйста попробуйте еще раз </p>
-	</div>
-	<form action="/login" method="post">
-		<table>
-			<tr>
-				<td>
-					Эл. почта:
-				</td>
-				<td>
-					<input type="text" name="username"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Пароль:
-				</td>
-				<td>
-					<input type="password" name="password"/>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<input type="submit" value="Войти!"/>
-	</form>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="/img/messagerLogo.png"
+                     alt="" width="30" height="30" class="d-inline-block align-text-top"> Messeger
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Главное</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/messages">Сообщения</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Авторизация</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Регистрация</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </div>
-<br>
-<div>
-	<form action="/register" method="get">
-		<input type="submit" value="Создать нового пользователя!"/>
-	</form>
+<div class="container mt-5">
+    <div class="d-grid gap-1 col-6 mx-auto">
+        <div>
+            <h1 class="text-center">Авторизация</h1>
+            <div class="text-center" style="color: #f46767" th:if="${param.error}">
+                <p> Либо эл. почта или пароль введен неправильно, <br>
+                    либо эл. почта не подтверждена! <br>
+                    Пожалуйста попробуйте еще раз </p>
+            </div>
+            <form action="/login" method="post">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput"
+                           placeholder="name@example.com" name="username">
+                    <label for="floatingInput">Адрес электронной почты</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword"
+                           placeholder="Пароль" name="password">
+                    <label for="floatingPassword">Пароль</label>
+                </div>
+                <br>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-outline-success">Войти</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/js/script.js"></script>
+    <div th:insert="fragments :: bootstrap-js"></div>
 </div>
-<script src="/js/script.js"></script>
-<div th:insert="fragments :: bootstrap-js"></div>
 </body>
 </html>
