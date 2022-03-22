@@ -7,3 +7,7 @@ tr td {
 .error-msg {
 	color: #f46767;
 }
+
+body {
+	font-family: "Roboto Mono Light", serif;
+}

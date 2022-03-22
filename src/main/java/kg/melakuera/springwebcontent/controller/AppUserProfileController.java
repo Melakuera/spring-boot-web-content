@@ -2,6 +2,7 @@ package kg.melakuera.springwebcontent.controller;
 
 import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.service.AppUserService;
+import kg.melakuera.springwebcontent.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,14 +18,17 @@ import javax.validation.Valid;
 public class AppUserProfileController {
 	
 	private final AppUserService appUserService;
+	private final MessageService messageService;
 	
 	@GetMapping("/profile/{id}")
 	public String getUser(
 			@AuthenticationPrincipal AppUser authUser,
 			@PathVariable("id") Long id,
 			Model model) {
-		model.addAttribute("foundUser", appUserService.findById(id));
+		AppUser appUser = appUserService.findById(id);
+		model.addAttribute("foundUser", appUser);
 		model.addAttribute("user", authUser);
+		model.addAttribute("messages", messageService.findAllById(appUser.getId()));
 		
 		return "profile";
 	}

@@ -8,6 +8,7 @@
 <body>
 <div th:insert="~{fragments :: navbar}"></div>
 <div class="container mt-5">
+    <h1 class="text-center" th:text="'Профиль: '+${foundUser.getEmail()}"></h1>
     <table class="table table-success table-striped border border-success">
         <tr style="text-align: center">
             <th>ID</th>
@@ -28,9 +29,20 @@
         </form>
     </div>
     <br>
-    <form action="/messages" method="get">
-        <button type="submit" class="btn btn-outline-success"  style="width: 100%;">Сообщения!</button>
-    </form>
+    <div th:each="m : ${messages}">
+        <div class="card my-3" style="width: 100%;">
+            <div th:if="${m.getFileName() != null}">
+                <img class="card-img-top" th:src="@{/msg/{fileName}(fileName=${m.getFileName()})}" alt=""/>
+            </div>
+            <div class="card-body">
+                <span th:text="${m.getText()}"></span>
+                <hr>
+                <div>
+                    <i th:text="${m.getTag()}"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:insert="fragments :: bootstrap-js"></div>

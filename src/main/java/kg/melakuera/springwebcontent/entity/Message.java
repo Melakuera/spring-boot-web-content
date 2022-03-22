@@ -22,17 +22,13 @@ public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	@NotBlank(message = "Пожалуйста заполните текст сообщения")
 	@Length(message = "Краткость - сестра таланта", max = 1024)
 	private String text;
-
 	private String tag;
-
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
 	private AppUser appUser;
-
 	private String fileName;
 
 	public Message(String text, String tag, AppUser appUser) {
