@@ -7,22 +7,44 @@
 <body>
 <div th:insert="fragments :: navbar"></div>
 <div class="container mt-5">
-    <p th:text="${foundUser.getId()}"></p>
-    <form th:method="post" th:action="@{/user/{id}(id=${foundUser.getId()})}" th:object="${foundUser}">
-        <label> Имя: <input type="text" th:field="*{firstName}">
-        </label>
+    <h1 th:text="${appUser.getEmail()}"></h1>
+    <form th:method="post" th:action="@{/user/{id}(id=${appUser.getId()})}" th:object="${appUser}">
+        <table>
+            <tr>
+                <td>Имя:</td>
+                <td>
+                    <input type="text" th:field="*{firstName}" name="firstName"/>
+                </td>
+                <td>
+                <span class="error-msg"
+                      th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Фамилия:</td>
+                <td>
+                    <input type="text" th:field="*{lastName}" name="lastName"/>
+                </td>
+                <td>
+                <span class="error-msg"
+                      th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Роль:</td>
+                <td>
+                    <select th:field="*{role}">
+                        <option th:each="role : ${roles}"
+                                th:value="${role}"
+                                th:text="${role.name()}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
         <br><br>
-        <label> Фамилия: <input type="text" th:field="*{lastName}">
-        </label>
-        <br><br>
-        <label> Роль:
-            <select th:field="*{role}">
-                <option th:each="role : ${roles}"
-                        th:value="${role}"
-                        th:text="${role.name()}"></option>
-            </select>
-        </label>
-        <br><br>
+        <input type="hidden" th:field="*{email}">
+        <input type="hidden" th:field="*{password}">
         <button type="submit">Изменить!</button>
     </form>
     <br>
