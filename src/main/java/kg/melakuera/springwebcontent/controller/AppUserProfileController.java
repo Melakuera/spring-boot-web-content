@@ -20,30 +20,35 @@ public class AppUserProfileController {
 	
 	@GetMapping("/profile/{id}")
 	public String getUser(
-			@AuthenticationPrincipal AppUser appUser,
+			@AuthenticationPrincipal AppUser authUser,
 			@PathVariable("id") Long id,
 			Model model) {
 		model.addAttribute("foundUser", appUserService.findById(id));
-		model.addAttribute("user", appUser);
+		model.addAttribute("user", authUser);
 		
 		return "profile";
 	}
 	@GetMapping("/settings/{id}")
 	public String settingsUser(
+			@AuthenticationPrincipal AppUser authUser,
 			@PathVariable("id") Long id,
 			Model model) {
-		model.addAttribute("user", appUserService.findById(id));
+		model.addAttribute("user", authUser);
+		model.addAttribute("appUser", appUserService.findById(id));
 
 		return "settings";
 	}
 
 	@PostMapping("/settings/{id}")
 	public String patchUser(
+			@AuthenticationPrincipal AppUser authUser,
 			@PathVariable("id") Long id,
-			@ModelAttribute("user") @Valid AppUser appUser,
-			BindingResult bindingResult) {
+			@ModelAttribute("appUser") @Valid AppUser appUser,
+			BindingResult bindingResult,
+			Model model) {
 
 		if (bindingResult.hasErrors()) {
+			model.addAttribute("user", authUser);
 
 			return "settings";
 		}
@@ -62,7 +67,7 @@ public class AppUserProfileController {
 	@GetMapping("/update/password")
 	public String updatePasswordPage(@Param("code") String code, Model model) {
 		AppUser appUser = appUserService.findByResetPasswordCode(code);
-		model.addAttribute("user", appUser);
+		model.addAttribute("appUser", appUser);
 		model.addAttribute("error_msg", false);
 
 		return "updatePassword";
@@ -78,7 +83,7 @@ public class AppUserProfileController {
 		appUserService.updatePassword(appUser, password1, password2);
 		if (!password1.equals(password2)) {
 			model.addAttribute("error_msg", true);
-			model.addAttribute("user", appUser);
+			model.addAttribute("appUser", appUser);
 
 			return "updatePassword";
 		}

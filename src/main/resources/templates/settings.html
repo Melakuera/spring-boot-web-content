@@ -8,7 +8,7 @@
 <body>
 <div th:insert="~{fragments :: navbar}"></div>
 <div class="container mt-5">
-    <form th:action="@{/settings/{id}(id=${user.getId()})}" method="post" th:object="${user}">
+    <form th:action="@{/settings/{id}(id=${appUser.getId()})}" method="post" th:object="${appUser}">
         <table>
             <tr>
                 <td>Имя:</td>
@@ -38,14 +38,8 @@
     </form>
     <br>
     <div>
-        <form th:action="@{/reset/password/{id}(id=${user.getId()})}" method="post">
+        <form th:action="@{/reset/password/{id}(id=${appUser.getId()})}" method="post">
             <button>Сбросить пароль!</button>
-        </form>
-    </div>
-    <br>
-    <div>
-        <form th:action="@{/profile/{id}(id=${user.getId()})}" method="get">
-            <button>Назад!</button>
         </form>
     </div>
 </div>

@@ -27,8 +27,8 @@
         </tr>
     </table>
 
-    <div th:if="${foundUser.getEmail()} == ${user.getEmail()}">
-        <form th:action="@{/settings/{email}(email=${user.getId()})}" method="get">
+    <div th:if="${foundUser.getId()} == ${user.getId()}">
+        <form th:action="@{/settings/{id}(id=${foundUser.getId()})}" method="get">
             <button>Настройки!</button>
         </form>
     </div>

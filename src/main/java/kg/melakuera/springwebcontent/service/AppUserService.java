@@ -3,7 +3,7 @@ package kg.melakuera.springwebcontent.service;
 import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.entity.Role;
 import kg.melakuera.springwebcontent.repository.AppUserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Log
 public class AppUserService implements UserDetailsService {
 	
