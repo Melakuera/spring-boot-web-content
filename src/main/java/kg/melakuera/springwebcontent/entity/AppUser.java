@@ -15,7 +15,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -41,8 +40,6 @@ public class AppUser implements UserDetails{
 	private Role role;
 	private String resetPasswordCode;
 	private Boolean enabled;
-	@OneToMany(fetch = FetchType.EAGER)
-	private List<Message> messages;
 
 	public AppUser(String firstName, String lastName, String email, String password, 
 			Role role, Boolean enabled) {

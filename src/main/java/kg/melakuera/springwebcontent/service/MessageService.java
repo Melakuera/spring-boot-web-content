@@ -5,7 +5,6 @@ import kg.melakuera.springwebcontent.entity.Message;
 import kg.melakuera.springwebcontent.repository.MessageRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,5 +38,9 @@ public class MessageService {
 		}
 		log.info(String.format("Данное сообщение %s сохранен", msg));
 		messageRepository.save(msg);
+	}
+
+	public List<Message> findAllById(Long id) {
+		return messageRepository.findAllByAppUserId(id);
 	}
 }

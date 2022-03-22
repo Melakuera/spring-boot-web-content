@@ -37,10 +37,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/login").permitAll()
 			.and()
 				.logout().permitAll()
-				.logoutSuccessUrl("/")
+				.logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .deleteCookies("JSESSIONID");
+                .deleteCookies("JSESSIONID")
+			.and()
+				.rememberMe().tokenValiditySeconds(5*60);
 	}
 
 	@Override

@@ -8,6 +8,7 @@
 <body>
 <div th:insert="~{fragments :: navbar}"></div>
 <div class="container mt-5">
+    <h1 class="text-center" th:text="'Настройки: '+${appUser.getEmail()}"></h1>
     <form th:action="@{/settings/{id}(id=${appUser.getId()})}" method="post" th:object="${appUser}">
         <div class="row">
             <div class="col">
