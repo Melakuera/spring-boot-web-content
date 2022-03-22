@@ -9,47 +9,47 @@
 <div class="container mt-5">
     <h1 th:text="${appUser.getEmail()}"></h1>
     <form th:method="post" th:action="@{/user/{id}(id=${appUser.getId()})}" th:object="${appUser}">
-        <table>
-            <tr>
-                <td>Имя:</td>
-                <td>
-                    <input type="text" th:field="*{firstName}" name="firstName"/>
-                </td>
-                <td>
-                <span class="error-msg"
-                      th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>Фамилия:</td>
-                <td>
-                    <input type="text" th:field="*{lastName}" name="lastName"/>
-                </td>
-                <td>
-                <span class="error-msg"
-                      th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>Роль:</td>
-                <td>
-                    <select th:field="*{role}">
-                        <option th:each="role : ${roles}"
-                                th:value="${role}"
-                                th:text="${role.name()}">
-                        </option>
-                    </select>
-                </td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="floatingName">Имя</label>
+                    <input type="text" class="form-control" id="floatingName"
+                           th:field="*{firstName}">
+                    <span class="error-msg"
+                          th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+                    </span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="floatingSurname">Фамилия</label>
+                    <input type="text" class="form-control" id="floatingSurname"
+                           th:field="*{lastName}">
+                    <span class="error-msg"
+                          th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="select">Роль</label>
+                <select th:field="*{role}" class="form-select" id="select">
+                    <option th:each="role : ${roles}"
+                            th:value="${role}"
+                            th:text="${role.name()}">
+                    </option>
+                </select>
+            </div>
+            <br>
+            <div class="col-8">
+                <br>
+                <button class="btn btn-outline-success" style="width: 100%" type="submit">Изменить!</button>
+            </div>
+        </div>
         <br><br>
         <input type="hidden" th:field="*{email}">
         <input type="hidden" th:field="*{password}">
-        <button type="submit">Изменить!</button>
-    </form>
-    <br>
-    <form action="/users" method="get">
-        <input type="submit" value="Назад!">
     </form>
 </div>
 

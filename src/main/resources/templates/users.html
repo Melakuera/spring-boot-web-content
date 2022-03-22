@@ -5,31 +5,30 @@
     <title>Пользователи</title>
     <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
 </head>
+<script>
+    function link(id) {
+        window.location.href="/user/"+id
+    }
+</script>
 <body>
 <div th:insert="fragments :: navbar"></div>
 <div class="container mt-5">
     <h1>Список всех пользователей</h1>
-    <table>
-        <tr>
-            <th>Id</th>
+    <table class="table table-success table-striped border border-success">
+        <tr style="text-align: center">
+            <th>ID</th>
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Эл. почта</th>
-            <th>Роли</th>
-            <th></th>
+            <th>Роль</th>
         </tr>
         <div th:each="u : ${users}">
-            <tr>
+            <tr th:onclick="'link('+${u.getId()}+');'" style="text-align: center">
                 <td th:text="${u.getId()}"></td>
                 <td th:text="${u.getFirstName()}"></td>
                 <td th:text="${u.getLastName()}"></td>
                 <td th:text="${u.getEmail()}"></td>
                 <td th:text="${u.getRole()}"></td>
-                <td>
-                    <form th:action="@{/user/{id}(id=${u.getId()})}">
-                        <button type="submit">Изменить!</button>
-                    </form>
-                </td>
             </tr>
         </div>
     </table>
