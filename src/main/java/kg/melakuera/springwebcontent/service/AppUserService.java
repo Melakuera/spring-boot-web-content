@@ -76,6 +76,8 @@ public class AppUserService implements UserDetailsService {
 		updatingAppUser.setFirstName(appUser.getFirstName());
 		updatingAppUser.setLastName(appUser.getLastName());
 		updatingAppUser.setRole(appUser.getRole());
+		System.out.println(appUser.getEmail());
+		System.out.println(appUser.getPassword());
 	}
 
 	public void resetPassword(Long id) {
