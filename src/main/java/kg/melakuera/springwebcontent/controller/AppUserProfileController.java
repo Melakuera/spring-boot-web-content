@@ -61,7 +61,7 @@ public class AppUserProfileController {
 	public String resetPassword(@PathVariable Long id) {
 		appUserService.resetPassword(id);
 
-		return "redirect:/login";
+		return "redirect:/logout";
 	}
 
 	@GetMapping("/update/password")

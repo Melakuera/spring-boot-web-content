@@ -6,17 +6,23 @@
     <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
 </head>
 <body>
-<div th:if="${result_msg}">
-    <p>Пользователь подтвержден!</p>
-</div>
-<div th:unless="${result_msg}">
-    <p>Истекло время подтверждение пользователя!</p>
-</div>
+<div th:insert="~{fragments :: navbar2}"></div>
+<div class="container mt-5">
+    <h1 class="text-center">Подтверждение пользователя</h1>
+    <div th:if="${result_msg}" class="text-center">
+        <p>Пользователь подтвержден!</p>
+    </div>
+    <div th:unless="${result_msg}" class="text-center">
+        <p>Истекло время подтверждение пользователя!</p>
+    </div>
 
-<form action="/" method="get">
-    <input type="submit" value="Перейти к главной странице!">
-</form>
+    <form action="/" method="get">
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-outline-success">Перейти к главной странице!</button>
+        </div>
+    </form>
 
-<div th:insert="fragments :: bootstrap-js"></div>
+    <div th:insert="fragments :: bootstrap-js"></div>
+</div>
 </body>
 </html>
