@@ -69,7 +69,7 @@
             </div>
             <div class="card-footer text-muted">
                 <a th:href="@{/profile/{firstName}(firstName=${m.getAppUser().getId()})}"
-                   th:text="${m.getAppUser().getFirstName()}"></a>
+                   th:text="${m.getAppUser().getFirstName()}" class="link-success"></a>
             </div>
         </div>
     </div>

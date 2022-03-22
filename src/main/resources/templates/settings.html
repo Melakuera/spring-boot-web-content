@@ -9,39 +9,48 @@
 <div th:insert="~{fragments :: navbar}"></div>
 <div class="container mt-5">
     <form th:action="@{/settings/{id}(id=${appUser.getId()})}" method="post" th:object="${appUser}">
-        <table>
-            <tr>
-                <td>Имя:</td>
-                <td>
-                    <input type="text" th:field="*{firstName}" name="firstName"/>
-                </td>
-                <td>
-                <span class="error-msg"
-                      th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>Фамилия:</td>
-                <td>
-                    <input type="text" th:field="*{lastName}" name="lastName"/>
-                </td>
-                <td>
-                <span class="error-msg"
-                      th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-                </td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="floatingName">Имя</label>
+                    <input type="text" class="form-control" id="floatingName"
+                           th:field="*{firstName}">
+                    <span class="error-msg"
+                          th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+                    </span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="floatingSurname">Фамилия</label>
+                    <input type="text" class="form-control" id="floatingSurname"
+                           th:field="*{lastName}">
+                    <span class="error-msg"
+                          th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-success" type="submit">Изменить!</button>
+            </div>
+        </div>
         <input type="hidden" th:field="*{email}">
         <input type="hidden" th:field="*{password}">
-        <br>
-        <button type="submit">Изменить!</button>
     </form>
     <br>
-    <div>
-        <form th:action="@{/reset/password/{id}(id=${appUser.getId()})}" method="post">
-            <button>Сбросить пароль!</button>
-        </form>
-    </div>
+    <form th:action="@{/reset/password/{id}(id=${appUser.getId()})}" method="post">
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-success" type="submit">Сбросить пароль!</button>
+        </div>
+    </form>
+    <br>
+    <form th:action="@{/profile/{id}(id=${appUser.getId()})}" method="get">
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-success" type="submit">Назад!</button>
+        </div>
+    </form>
 </div>
 
 <div th:insert="fragments :: bootstrap-js"></div>

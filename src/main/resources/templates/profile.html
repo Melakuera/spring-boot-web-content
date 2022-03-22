@@ -8,36 +8,29 @@
 <body>
 <div th:insert="~{fragments :: navbar}"></div>
 <div class="container mt-5">
-    <table>
-        <tr>
-            <td>Id:</td>
+    <table class="table table-success table-striped border border-success">
+        <tr style="text-align: center">
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Эл. почта</th>
+        </tr>
+        <tr style="text-align: center">
             <td><p th:text="${foundUser.getId()}"></p></td>
-        </tr>
-        <tr>
-            <td>Имя:</td>
             <td><p th:text="${foundUser.getFirstName()}"></p></td>
-        </tr>
-        <tr>
-            <td>Фамилия:</td>
             <td><p th:text="${foundUser.getLastName()}"></p></td>
-        </tr>
-        <tr>
-            <td>Эл. почта:</td>
             <td><p th:text="${foundUser.getEmail()}"></p></td>
         </tr>
     </table>
-
     <div th:if="${foundUser.getId()} == ${user.getId()}">
         <form th:action="@{/settings/{id}(id=${foundUser.getId()})}" method="get">
-            <button>Настройки!</button>
+            <button type="submit" class="btn btn-outline-success"  style="width: 100%;">Настройки!</button>
         </form>
     </div>
     <br>
-    <div>
-        <form action="/messages" method="get">
-            <button>Назад!</button>
-        </form>
-    </div>
+    <form action="/messages" method="get">
+        <button type="submit" class="btn btn-outline-success"  style="width: 100%;">Сообщения!</button>
+    </form>
 </div>
 
 <div th:insert="fragments :: bootstrap-js"></div>
