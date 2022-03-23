@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
-public class AppUserProfileController {
+public class AppUserController {
 	
 	private final AppUserService appUserService;
 	private final MessageService messageService;
@@ -92,5 +92,22 @@ public class AppUserProfileController {
 			return "updatePassword";
 		}
 		return "redirect:/login";
+	}
+
+	@PostMapping("/unsubscribe/{id}")
+	public String unsubscribe(
+			@AuthenticationPrincipal AppUser appUser,
+			@PathVariable("id") Long id) {
+		appUserService.unsubscribe(appUser, id);
+
+		return "redirect:/profile/"+id;
+	}
+	@PostMapping("/subscribe/{id}")
+	public String subscribe(
+			@AuthenticationPrincipal AppUser appUser,
+			@PathVariable("id") Long id) {
+		appUserService.subscribe(appUser, id);
+
+		return "redirect:/profile/"+id;
 	}
 }

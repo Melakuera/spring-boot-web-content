@@ -23,9 +23,53 @@
             <td><p th:text="${foundUser.getEmail()}"></p></td>
         </tr>
     </table>
+    <div th:if="not ${foundUser.getId() == user.getId()}">
+        <div th:if="${(foundUser.getSubscribers().contains(user))}">
+            <form th:action="@{/unsubscribe/{id}(id=${foundUser.getId()})}" method="post">
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-outline-success">Отписаться</button>
+                </div>
+            </form>
+        </div>
+        <div th:unless="${foundUser.getSubscribers().contains(user)}">
+            <form th:action="@{/subscribe/{id}(id=${foundUser.getId()})}" method="post">
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-outline-success">Подписаться</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Подписчики:
+                        <a class="link-success"
+                           th:text="${foundUser.getSubscribers().size()}"
+                           th:href="@{user/{id}(id=${foundUser.getId()})/subscribers}">
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Подписки:
+                        <a class="link-success"
+                           th:text="${foundUser.getSubscriptions().size()}"
+                           th:href="@{user/{id}(id=${foundUser.getId()})/subscriptions}">
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
     <div th:if="${foundUser.getId()} == ${user.getId()}">
         <form th:action="@{/settings/{id}(id=${foundUser.getId()})}" method="get">
-            <button type="submit" class="btn btn-outline-success"  style="width: 100%;">Настройки!</button>
+            <button type="submit" class="btn btn-outline-success" style="width: 100%;">Настройки!</button>
         </form>
     </div>
     <br>

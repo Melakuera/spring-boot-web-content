@@ -68,7 +68,7 @@ public class MessageController {
 	}
 
 	@GetMapping("/update/message/{id}")
-	public String updatePag(
+	public String updatePage(
 			@AuthenticationPrincipal AppUser appUser,
 			@PathVariable("id") Long id,
 			Model model) {
