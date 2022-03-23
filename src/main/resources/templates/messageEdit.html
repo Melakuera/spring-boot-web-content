@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Изменение сообщения</title>
+    <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
+</head>
+<body>
+<div th:insert="fragments :: navbar"></div>
+<div class="container mt-5">
+    <form th:action="@{/update/message/{id}(id=${message.getId()})}" th:method="patch" th:object="${message}" enctype="multipart/form-data">
+        <div class="form-group mt-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Сообщение</label>
+            <textarea class="form-control" th:field="*{text}" aria-describedby="sms"
+                      id="exampleFormControlTextarea1" rows="3"></textarea>
+            <div id="sms" class="form-text">
+                    <span class="error-msg" th:if="${#fields.hasErrors('text')}"
+                          th:errors="*{text}">Text error
+                    </span>
+            </div>
+
+            <div class="row">
+                <div class="col-5">
+                    <label for="exampleFormControlInput1" class="form-label">Тег</label>
+                    <input type="text" class="form-control" th:field="*{tag}" id="exampleFormControlInput1">
+                </div>
+                <br>
+                <div class="col">
+                    <label class="form-label" for="formFile">Изображение</label>
+                    <input type="file" class="form-control" accept="image/*" name="file" id="formFile">
+                </div>
+            </div>
+            <br>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-outline-success">Изменить!</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:insert="fragments :: bootstrap-js"></div>
+</body>
+</html>

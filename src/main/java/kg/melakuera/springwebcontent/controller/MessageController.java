@@ -2,17 +2,13 @@ package kg.melakuera.springwebcontent.controller;
 
 import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.entity.Message;
-import kg.melakuera.springwebcontent.service.AppUserService;
 import kg.melakuera.springwebcontent.service.MessageService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -22,7 +18,6 @@ import javax.validation.Valid;
 public class MessageController {
 
 	private MessageService messageService;
-	private AppUserService appUserService;
 
 	@GetMapping("/messages")
 	public String findAll(
@@ -63,5 +58,41 @@ public class MessageController {
 		model.addAttribute("user", appUser);
 		
 		return "messages";
+	}
+
+	@DeleteMapping("/delete/message/{id}")
+	public String delete(@PathVariable("id") Long id) {
+		messageService.deleteById(id);
+
+		return "redirect:/messages";
+	}
+
+	@GetMapping("/update/message/{id}")
+	public String updatePag(
+			@AuthenticationPrincipal AppUser appUser,
+			@PathVariable("id") Long id,
+			Model model) {
+		model.addAttribute("user", appUser);
+		model.addAttribute("message", messageService.findById(id));
+		System.out.println(messageService.findById(id));
+
+		return "messageEdit";
+	}
+
+	@PatchMapping("/update/message/{id}")
+	public String update(
+			@AuthenticationPrincipal AppUser appUser,
+			@RequestParam("file") MultipartFile file,
+			@PathVariable("id") Long id,
+			@ModelAttribute("message") @Valid Message message,
+			BindingResult bindingResult,
+			Model model) {
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("user", appUser);
+			return "messageEdit";
+		}
+		messageService.update(message, file, id);
+		return "redirect:/messages";
 	}
 }

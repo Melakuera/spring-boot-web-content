@@ -20,7 +20,8 @@
         </form>
     </div>
     <br>
-    <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+    <a class="btn btn-outline-success" data-bs-toggle="collapse" href="#collapseExample" role="button"
+       aria-expanded="false"
        aria-controls="collapseExample">
         Добавить новое сообщение!
     </a>
@@ -49,7 +50,7 @@
                 </div>
                 <br>
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-success">Добавить!</button>
+                    <button type="submit" class="btn btn-outline-success">Добавить!</button>
                 </div>
             </div>
         </form>
@@ -68,8 +69,27 @@
                 </div>
             </div>
             <div class="card-footer text-muted">
-                <a th:href="@{/profile/{firstName}(firstName=${m.getAppUser().getId()})}"
-                   th:text="${m.getAppUser().getFirstName()}" class="link-success"></a>
+                <div class="row">
+                    <div class="col-9">
+                        <a th:href="@{/profile/{firstName}(firstName=${m.getAppUser().getId()})}"
+                           th:text="${m.getAppUser().getFirstName()}" class="link-success">
+                        </a>
+                    </div>
+                    <div class="col">
+                        <div th:if="${m.getAppUser().getId() == user.getId()}">
+                            <form th:action="@{/update/message/{id}(id=${m.getId()})}" method="get">
+                                <button type="submit" class="btn btn-outline-success btn-sm">Редактировать</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div th:if="${m.getAppUser().getId() == user.getId()}">
+                            <form th:action="@{/delete/message/{id}(id=${m.getId()})}" th:method="delete">
+                                <button type="submit" class="btn btn-outline-success btn-sm">Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

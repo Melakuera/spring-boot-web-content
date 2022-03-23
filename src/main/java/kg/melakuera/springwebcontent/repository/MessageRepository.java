@@ -12,4 +12,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 	List<Message> findByTagLike(String s);
 
 	List<Message> findAllByAppUserId(Long id);
+
+	void deleteById(Long id);
 }
