@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        lang="en">
+<head>
+    <title th:text="${foundUser.getEmail()}"></title>
+    <th:block th:insert="~{fragments :: bootstrap-css}"></th:block>
+</head>
+<script>
+    function link(id) {
+        window.location.href="/user/"+id
+    }
+</script>
+<body>
+<div th:insert="~{fragments :: navbar}"></div>
+<div class="container mt-5">
+    <h1 class="text-center" th:text="'Подписчики: '+${foundUser.getEmail()}"></h1>
+    <table class="table table-success table-striped border border-success">
+        <tr style="text-align: center">
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Эл. почта</th>
+        </tr>
+        <div th:each="s : ${foundUser.getSubscribers()}">
+            <tr th:onclick="'link('+${s.getId()}+');'" style="text-align: center">
+                <td th:text="${s.getId()}"></td>
+                <td th:text="${s.getFirstName()}"></td>
+                <td th:text="${s.getLastName()}"></td>
+                <td th:text="${s.getEmail()}"></td>
+            </tr>
+        </div>
+    </table>
+</div>
+
+<div th:insert="fragments :: bootstrap-js"></div>
+</body>
+</html>

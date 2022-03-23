@@ -110,4 +110,24 @@ public class AppUserController {
 
 		return "redirect:/profile/"+id;
 	}
+
+	@GetMapping("user/subscribers/{id}")
+	public String getSubscribers(
+			@AuthenticationPrincipal AppUser appUser,
+			@PathVariable("id") Long id, Model model) {
+		model.addAttribute("foundUser", appUserService.findById(id));
+		model.addAttribute("user", appUser);
+
+		return "subscribers";
+	}
+
+	@GetMapping("user/subscriptions/{id}")
+	public String getSubscriptions(
+			@AuthenticationPrincipal AppUser appUser,
+			@PathVariable("id") Long id, Model model) {
+		model.addAttribute("foundUser", appUserService.findById(id));
+		model.addAttribute("user", appUser);
+
+		return "subscriptions";
+	}
 }

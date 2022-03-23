@@ -47,7 +47,7 @@
                     <h5 class="card-title">Подписчики:
                         <a class="link-success"
                            th:text="${foundUser.getSubscribers().size()}"
-                           th:href="@{user/{id}(id=${foundUser.getId()})/subscribers}">
+                           th:href="@{/user/subscribers/{id}(id=${foundUser.getId()})}">
                         </a>
                     </h5>
                 </div>
@@ -59,7 +59,7 @@
                     <h5 class="card-title">Подписки:
                         <a class="link-success"
                            th:text="${foundUser.getSubscriptions().size()}"
-                           th:href="@{user/{id}(id=${foundUser.getId()})/subscriptions}">
+                           th:href="@{/user/subscriptions/{id}(id=${foundUser.getId()})}">
                         </a>
                     </h5>
                 </div>
