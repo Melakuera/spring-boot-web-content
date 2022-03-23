@@ -3,7 +3,6 @@ package kg.melakuera.springwebcontent.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,12 +14,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class AppUser implements UserDetails{
 
@@ -39,6 +38,16 @@ public class AppUser implements UserDetails{
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	private String resetPasswordCode;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "subscriber_subscription",
+			joinColumns = @JoinColumn(name = "subscription_id"),
+			inverseJoinColumns = @JoinColumn(name = "subscriber_id"))
+	private List<AppUser> subscribers;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "subscriber_subscription",
+			joinColumns = @JoinColumn(name = "subscriber_id"),
+			inverseJoinColumns = @JoinColumn(name = "subscription_id"))
+	private List<AppUser> subscriptions;
 	private Boolean enabled;
 
 	public AppUser(String firstName, String lastName, String email, String password, 
@@ -98,5 +107,18 @@ public class AppUser implements UserDetails{
 	@Override
 	public int hashCode() {
 		return getClass().hashCode();
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + "(" +
+				"id = " + id + ", " +
+				"firstName = " + firstName + ", " +
+				"lastName = " + lastName + ", " +
+				"email = " + email + ", " +
+				"password = " + password + ", " +
+				"role = " + role + ", " +
+				"resetPasswordCode = " + resetPasswordCode + ", " +
+				"enabled = " + enabled + ")";
+	}
 }

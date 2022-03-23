@@ -100,4 +100,16 @@ public class AppUserService implements UserDetailsService {
 		log.info(String.format("Пароль пользователя %s успешно изменён", appUser.getEmail()));
 		return true;
 	}
+
+    public void unsubscribe(AppUser appUser, Long id) {
+		AppUser foundUser = appUserRepository.findById(id).orElse(null);
+		assert foundUser != null;
+		foundUser.getSubscribers().remove(appUser);
+    }
+
+	public void subscribe(AppUser appUser, Long id) {
+		AppUser foundUser = appUserRepository.findById(id).orElse(null);
+		assert foundUser != null;
+		foundUser.getSubscribers().add(appUser);
+	}
 }
