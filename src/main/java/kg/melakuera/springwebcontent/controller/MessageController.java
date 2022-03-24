@@ -74,7 +74,6 @@ public class MessageController {
 			Model model) {
 		model.addAttribute("user", appUser);
 		model.addAttribute("message", messageService.findById(id));
-		System.out.println(messageService.findById(id));
 
 		return "messageEdit";
 	}

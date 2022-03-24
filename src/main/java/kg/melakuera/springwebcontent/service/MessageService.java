@@ -58,14 +58,15 @@ public class MessageService {
 
 	public void update(Message message, MultipartFile file, Long id) {
 		Message updatedMessage = messageRepository.findById(id).orElse(null);
+		System.out.println(updatedMessage);
 		assert updatedMessage != null;
 		updatedMessage.setText(message.getText());
 		updatedMessage.setTag(message.getTag());
-		if (!updatedMessage.getFileName().isBlank() && !file.isEmpty()) {
+		if (updatedMessage.getFileName() != null && !file.isEmpty()) {
 			fileService.delete(updatedMessage.getFileName());
 			updatedMessage.setFileName(fileService.upload(file));
 		}
-		if (updatedMessage.getFileName().isBlank() && !file.isEmpty()) {
+		if (updatedMessage.getFileName() == null && !file.isEmpty()) {
 			updatedMessage.setFileName(fileService.upload(file));
 		}
 	}
