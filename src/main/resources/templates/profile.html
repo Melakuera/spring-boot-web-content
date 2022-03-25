@@ -85,25 +85,52 @@
                     <i th:text="${m.getTag()}"></i>
                 </div>
             </div>
-            <div class="card-footer text-muted">
+            <div class="card-footer text-muted container">
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col align-self-start">
                         <a th:href="@{/profile/{firstName}(firstName=${m.getAppUser().getId()})}"
                            th:text="${m.getAppUser().getFirstName()}" class="link-success">
                         </a>
                     </div>
-                    <div class="col">
-                        <div th:if="${m.getAppUser().getId() == user.getId()}">
-                            <form th:action="@{/update/message/{id}(id=${m.getId()})}" method="get">
-                                <button type="submit" class="btn btn-outline-success btn-sm">Редактировать</button>
-                            </form>
+                    <div class="col align-self-center">
+                        <div th:if="${m.getLikeUsers().contains(user)}" style="display: inline-block"z`>
+                            <a th:href="@{/unlike/message/{id}(id=${m.getId()})}">
+                                <img src="/img/likeyet.png" width="30px" alt="...">
+                            </a>
                         </div>
+                        <div th:if="not ${m.getLikeUsers().contains(user)}" style="display: inline-block">
+                            <a th:href="@{/like/message/{id}(id=${m.getId()})}">
+                                <img src="/img/like.png" width="30px" alt="...">
+                            </a>
+                        </div>
+                        <span style="color: #1ab06d" th:text="${m.getLikeUsers().size()}"></span>
                     </div>
-                    <div class="col">
-                        <div th:if="${m.getAppUser().getId() == user.getId()}">
-                            <form th:action="@{/delete/message/{id}(id=${m.getId()})}" th:method="delete">
-                                <button type="submit" class="btn btn-outline-success btn-sm">Удалить</button>
-                            </form>
+                    <div class="col align-self-end" th:if="${m.getAppUser().getId() == user.getId()}">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-success btn-sm dropdown-toggle" type="button"
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown">
+                                Действия
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <span class="dropdown-item">
+                                        <form class="form" th:action="@{/update/message/{id}(id=${m.getId()})}"
+                                              method="get">
+                                            <button type="submit"
+                                                    class="btn btn-outline-success btn-sm">Редактировать</button>
+                                        </form>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="dropdown-item">
+                                        <form class="form" th:action="@{/delete/message/{id}(id=${m.getId()})}"
+                                              th:method="delete">
+                                            <button type="submit"
+                                                    class="btn btn-outline-success btn-sm">Удалить</button>
+                                        </form>
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

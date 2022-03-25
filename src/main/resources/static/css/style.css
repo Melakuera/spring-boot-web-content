@@ -11,3 +11,32 @@ tr td {
 body {
 	font-family: "Roboto Mono Light", serif;
 }
+
+.pagination > li > a
+{
+	background-color: white;
+	color: #76e7b3;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+	color: #ffffff;
+	background-color: #0c6c41;
+	border-color: #1ab06d;
+}
+
+.pagination > .active > a
+{
+	color: white;
+	background-color: #1Cb06d !Important;
+	border: solid 1px #1Cb06d !Important;
+}
+
+.pagination > .active > a:hover
+{
+	background-color: #5A4181 !Important;
+	border: solid 1px #5A4181;
+}

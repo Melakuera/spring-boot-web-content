@@ -5,11 +5,11 @@ import kg.melakuera.springwebcontent.entity.Message;
 import kg.melakuera.springwebcontent.repository.MessageRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -20,15 +20,15 @@ public class MessageService {
 	private final MessageRepository messageRepository;
 	private final FileService fileService;
 
-	public List<Message> findAll(){
-		return messageRepository.findAll();
+	public Page<Message> findAll(Pageable pageable){
+		return messageRepository.findAll(pageable);
 	}
 
-	public List<Message> findByTagLike(String filter){
+	public Page<Message> findByTagLike(String filter, Pageable pageable){
 		if (filter != null && !filter.isEmpty()) {
 			log.info(String.format("Фильтрация сообщении по тегу - %s",filter));
 		}
-		return messageRepository.findByTagLike(filter);
+		return messageRepository.findByTagLike(filter, pageable);
 	}
 
 	public void save(Message message, AppUser appUser, MultipartFile file) {
@@ -40,8 +40,8 @@ public class MessageService {
 		messageRepository.save(msg);
 	}
 
-	public List<Message> findAllById(Long id) {
-		return messageRepository.findAllByAppUserId(id);
+	public Page<Message> findAllById(Long id, Pageable pageable) {
+		return messageRepository.findAllByAppUserId(id, pageable);
 	}
 
 	public void deleteById(Long id) {

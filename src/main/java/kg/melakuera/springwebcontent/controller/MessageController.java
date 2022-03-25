@@ -3,7 +3,11 @@ package kg.melakuera.springwebcontent.controller;
 import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.entity.Message;
 import kg.melakuera.springwebcontent.service.MessageService;
-import lombok.AllArgsConstructor;
+import kg.melakuera.springwebcontent.service.PaginationService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,17 +18,20 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @Controller
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MessageController {
 
-	private MessageService messageService;
+	private final MessageService messageService;
+	private final PaginationService paginationService;
 
 	@GetMapping("/messages")
 	public String findAll(
 			Model model,
 			@ModelAttribute("message") Message message,
-			@AuthenticationPrincipal AppUser appUser){
-		model.addAttribute("messages", messageService.findAll());
+			@AuthenticationPrincipal AppUser appUser,
+			@PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable){
+		model.addAttribute("pages", paginationService.getPage(messageService.findAll(pageable)));
+		model.addAttribute("messages", messageService.findAll(pageable));
 		model.addAttribute("user", appUser);
 
 		return "messages";
@@ -36,9 +43,10 @@ public class MessageController {
 			@RequestParam("file") MultipartFile file,
 			@ModelAttribute("message") @Valid Message message,
 			BindingResult bindingResult,
-			Model model) {
+			Model model,
+			@PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("messages", messageService.findAll());
+			model.addAttribute("messages", messageService.findAll(pageable));
 			model.addAttribute("user", appUser);
 			
 			return "messages";
@@ -53,8 +61,9 @@ public class MessageController {
 			@RequestParam String filter,
 			@ModelAttribute("message") Message message,
 			@AuthenticationPrincipal AppUser appUser,
-			Model model) {
-		model.addAttribute("messages", messageService.findByTagLike(filter));
+			Model model,
+			@PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+		model.addAttribute("messages", messageService.findByTagLike(filter, pageable));
 		model.addAttribute("user", appUser);
 		
 		return "messages";

@@ -4,7 +4,10 @@ import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.service.AppUserService;
 import kg.melakuera.springwebcontent.service.MessageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +27,12 @@ public class AppUserController {
 	public String getUser(
 			@AuthenticationPrincipal AppUser authUser,
 			@PathVariable("id") Long id,
-			Model model) {
+			Model model,
+			@PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
 		AppUser appUser = appUserService.findById(id);
 		model.addAttribute("foundUser", appUser);
 		model.addAttribute("user", authUser);
-		model.addAttribute("messages", messageService.findAllById(appUser.getId()));
+		model.addAttribute("messages", messageService.findAllById(appUser.getId(), pageable));
 		
 		return "profile";
 	}
