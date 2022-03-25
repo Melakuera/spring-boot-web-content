@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,7 +31,9 @@ public class MessageController {
 			@ModelAttribute("message") Message message,
 			@AuthenticationPrincipal AppUser appUser,
 			@PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable){
-		model.addAttribute("pages", paginationService.getPage(messageService.findAll(pageable)));
+		String pagination = Arrays.toString(paginationService.getPagination(messageService.findAll(pageable)));
+		model.addAttribute("pag", pagination);
+		model.addAttribute("pages", paginationService.getPagination(messageService.findAll(pageable)));
 		model.addAttribute("messages", messageService.findAll(pageable));
 		model.addAttribute("user", appUser);
 

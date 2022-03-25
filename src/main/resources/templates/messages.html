@@ -7,7 +7,7 @@
 <body>
 <div th:insert="~{fragments :: navbar}"></div>
 <div class="container mt-5">
-    <p th:text="${pages}"></p>
+    <p th:text="${pag}"></p>
     <h1>Сообщения</h1>
     <div class="form-group col-md-6">
         <form class="row gy-2 gx-3 align-items-center" th:action="@{/messages/filter}" method="post">
@@ -64,10 +64,10 @@
                 <li class="page-item disabled">
                     <a class="page-link" style="color: #1ab06d">Номер страницы</a>
                 </li>
-                <li th:each="p : ${#numbers.sequence(0, messages.getTotalPages()-1)}" class="page-item">
+                <li th:each="p : ${pages}" th:class="${p != -1} ? 'page-item' : 'page-item disabled'">
                     <a class="page-link"
-                       th:style="${p == messages.getNumber() ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
-                       th:text="${p+1}" th:href="@{/messages?page={p}&size={s}(p=${p}, s=${messages.getSize()})}">
+                       th:style="${p == (messages.getNumber()+1) ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
+                       th:text="${p != -1 ? p : '...'}" th:href="@{/messages?page={p}&size={s}(p=${p-1}, s=${messages.getSize()})}">
                     </a>
                 </li>
             </ul>
@@ -117,7 +117,7 @@
                         </a>
                     </div>
                     <div class="col align-self-center">
-                        <div th:if="${m.getLikeUsers().contains(user)}" style="display: inline-block" z`>
+                        <div th:if="${m.getLikeUsers().contains(user)}" style="display: inline-block">
                             <a th:href="@{/unlike/message/{id}(id=${m.getId()})}">
                                 <img src="/img/likeyet.png" width="30px" alt="...">
                             </a>
