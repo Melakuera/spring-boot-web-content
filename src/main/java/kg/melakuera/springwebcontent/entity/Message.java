@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -29,6 +30,13 @@ public class Message {
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
 	private AppUser appUser;
+	@ManyToMany
+	@JoinTable(
+			name = "message_like_user",
+			joinColumns = @JoinColumn(name = "message_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<AppUser> likeUsers;
+
 	private String fileName;
 
 	public Message(String text, String tag, AppUser appUser) {

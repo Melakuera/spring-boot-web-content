@@ -111,7 +111,7 @@ public class AppUserController {
 		return "redirect:/profile/"+id;
 	}
 
-	@GetMapping("user/subscribers/{id}")
+	@GetMapping("/user/subscribers/{id}")
 	public String getSubscribers(
 			@AuthenticationPrincipal AppUser appUser,
 			@PathVariable("id") Long id, Model model) {
@@ -121,7 +121,7 @@ public class AppUserController {
 		return "subscribers";
 	}
 
-	@GetMapping("user/subscriptions/{id}")
+	@GetMapping("/user/subscriptions/{id}")
 	public String getSubscriptions(
 			@AuthenticationPrincipal AppUser appUser,
 			@PathVariable("id") Long id, Model model) {
@@ -129,5 +129,27 @@ public class AppUserController {
 		model.addAttribute("user", appUser);
 
 		return "subscriptions";
+	}
+
+	@GetMapping("/like/message/{id}")
+	public String like(
+			@AuthenticationPrincipal AppUser authUser,
+			@PathVariable("id") Long id,
+			Model model) {
+		model.addAttribute("user", authUser);
+		messageService.like(authUser, id);
+
+		return "redirect:/messages";
+	}
+
+	@GetMapping("/unlike/message/{id}")
+	public String unlike(
+			@AuthenticationPrincipal AppUser authUser,
+			@PathVariable("id") Long id,
+			Model model) {
+		model.addAttribute("user", authUser);
+		messageService.unlike(authUser, id);
+
+		return "redirect:/messages";
 	}
 }

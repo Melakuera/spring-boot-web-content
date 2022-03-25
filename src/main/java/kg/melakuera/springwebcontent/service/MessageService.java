@@ -70,4 +70,15 @@ public class MessageService {
 			updatedMessage.setFileName(fileService.upload(file));
 		}
 	}
+
+	public void like(AppUser appUser, Long id) {
+		Message message = messageRepository.findById(id).orElse(null);
+		assert message != null;
+		message.getLikeUsers().add(appUser);
+	}
+	public void unlike(AppUser appUser, Long id) {
+		Message message = messageRepository.findById(id).orElse(null);
+		assert message != null;
+		message.getLikeUsers().remove(appUser);
+	}
 }
