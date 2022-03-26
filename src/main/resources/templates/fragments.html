@@ -26,7 +26,9 @@
                 <img src="/img/messagerLogo.png"
                      alt="" width="30" height="30" class="d-inline-block align-text-top"> Messeger
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Переключатель навигации">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -93,18 +95,37 @@
 <div th:fragment="pagination">
     <nav aria-label="Пример навигации по страницам">
         <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Предыдущая">
-                    <span aria-hidden="true">&laquo;</span>
+            <li class="page-item disabled">
+                <a class="page-link" style="color: #1ab06d">Номер страницы</a>
+            </li>
+            <li th:each="p : ${pages}" th:class="${p != -1} ? 'page-item' : 'page-item disabled'">
+                <a class="page-link"
+                   th:style="${p == (messages.getNumber()+1) ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
+                   th:text="${p != -1 ? p : '...'}"
+                   th:href="@{/messages?page={p}&size={s}&filter={f}(p=${p-1}, s=${messages.getSize()}, f=${filter})}">
                 </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+        </ul>
+    </nav>
+    <nav aria-label="Пример навигации по страницам">
+        <ul class="pagination">
+            <li class="page-item disabled">
+                <a class="page-link" style="color: #1ab06d">Количество сообщения</a>
+            </li>
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Следующая">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
+                <a class="page-link"
+                   th:style="${3 == messages.getSize() ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
+                   th:href="@{/messages?page={m}&size=3&filter={f}(m=${messages.getNumber()}, f=${filter})}">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   th:style="${5 == messages.getSize() ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
+                   th:href="@{/messages?page={m}&size=5&filter={f}(m=${messages.getNumber()}, f=${filter})}">5</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   th:style="${10 == messages.getSize() ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
+                   th:href="@{/messages?page={m}&size=10&filter={f}(m=${messages.getNumber()}, f=${filter})}">10</a>
             </li>
         </ul>
     </nav>

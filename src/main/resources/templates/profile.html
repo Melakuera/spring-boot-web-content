@@ -73,6 +73,7 @@
         </form>
     </div>
     <br>
+    <div th:insert="~{fragments :: pagination}"></div>
     <div th:each="m : ${messages}">
         <div class="card my-3" style="width: 100%;">
             <div th:if="${m.getFileName() != null}">

@@ -7,14 +7,14 @@
 <body>
 <div th:insert="~{fragments :: navbar}"></div>
 <div class="container mt-5">
-    <p th:text="${pag}"></p>
     <h1>Сообщения</h1>
     <div class="form-group col-md-6">
-        <form class="row gy-2 gx-3 align-items-center" th:action="@{/messages/filter}" method="post">
+        <form class="row gy-2 gx-3 align-items-center"
+              th:action="@{/messages}"
+              method="get">
             <div class="col-6">
                 <input class="form-control" type="text" name="filter" placeholder="Найти по тегу">
             </div>
-
             <div class="col-auto">
                 <button type="submit" class="btn btn-outline-success">Искать!</button>
             </div>
@@ -58,45 +58,7 @@
         </form>
     </div>
     <br>
-    <div>
-        <nav aria-label="Пример навигации по страницам">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" style="color: #1ab06d">Номер страницы</a>
-                </li>
-                <li th:each="p : ${pages}" th:class="${p != -1} ? 'page-item' : 'page-item disabled'">
-                    <a class="page-link"
-                       th:style="${p == (messages.getNumber()+1) ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
-                       th:text="${p != -1 ? p : '...'}" th:href="@{/messages?page={p}&size={s}(p=${p-1}, s=${messages.getSize()})}">
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <div>
-        <nav aria-label="Пример навигации по страницам">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" style="color: #1ab06d">Количество сообщения</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link"
-                       th:style="${3 == messages.getSize() ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
-                       th:href="@{/messages?page={m}&size=3(m=${messages.getNumber()})}">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link"
-                       th:style="${5 == messages.getSize() ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
-                       th:href="@{/messages?page={m}&size=5(m=${messages.getNumber()})}">5</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link"
-                       th:style="${10 == messages.getSize() ? 'background-color: #0c6c41; color: #ffffff; border-color: #1ab06d;' : ''}"
-                       th:href="@{/messages?page={m}&size=10(m=${messages.getNumber()})}">10</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <div th:insert="~{fragments :: pagination}"></div>
     <div th:each="m : ${messages}">
         <div class="card my-3" style="width: 100%;">
             <div th:if="${m.getFileName() != null}">

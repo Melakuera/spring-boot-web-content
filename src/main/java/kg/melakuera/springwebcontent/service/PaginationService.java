@@ -25,8 +25,6 @@ public class PaginationService {
                     new Integer[]{pageNumber - 2, pageNumber - 1} : new Integer[]{};
             Integer[] bodyAfter = (pageNumber > 2 && pageNumber < (totalPages - 3)) ?
                     new Integer[]{pageNumber + 1, pageNumber + 2} : new Integer[]{};
-            System.out.println(Arrays.toString(bodyAfter));
-            System.out.println(Arrays.toString(bodyBefore));
 
             List<Integer> list = new ArrayList<>();
             Collections.addAll(list, head);
@@ -36,9 +34,8 @@ public class PaginationService {
             Collections.addAll(list, bodyAfter);
             Collections.addAll(list, tail);
             Integer[] arr= list.toArray(new Integer[0]);
-            int[] res = Arrays.stream(arr).mapToInt(Integer::intValue).toArray();
-            System.out.println(Arrays.toString(res));
-            return res;
+
+            return Arrays.stream(arr).mapToInt(Integer::intValue).toArray();
         } else {
             return IntStream.rangeClosed(1, totalPages).toArray();
         }
