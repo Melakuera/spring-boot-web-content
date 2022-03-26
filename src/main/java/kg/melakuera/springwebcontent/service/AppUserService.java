@@ -20,18 +20,18 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Log
 public class AppUserService implements UserDetailsService {
-	
+
 	private final AppUserRepository appUserRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final AppMailSenderService appMailSenderService;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		return appUserRepository.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException(
 						String.format("Пользователь с данной %s эл. почтой не найден", email)));
 	}
-	
+
 	public boolean register(AppUser appUser) {
 		boolean user =  appUserRepository.findByEmail(appUser.getEmail()).isPresent();
 		if (user) {
@@ -91,14 +91,10 @@ public class AppUserService implements UserDetailsService {
 		log.info("Запрос на сброс пароля отправил пользователь с id: " + id);
 	}
 
-	public boolean updatePassword(AppUser appUser, String pw1, String pw2) {
-		if (!pw1.equals(pw2)) {
-			return false;
-		}
+	public void updatePassword(AppUser appUser, String pw1, String pw2) {
 		appUser.setPassword(bCryptPasswordEncoder.encode(pw1));
 
 		log.info(String.format("Пароль пользователя %s успешно изменён", appUser.getEmail()));
-		return true;
 	}
 
     public void unsubscribe(AppUser appUser, Long id) {

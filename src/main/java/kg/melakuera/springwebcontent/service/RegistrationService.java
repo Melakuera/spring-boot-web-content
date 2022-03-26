@@ -1,20 +1,19 @@
 package kg.melakuera.springwebcontent.service;
 
+import kg.melakuera.springwebcontent.entity.AppUser;
 import kg.melakuera.springwebcontent.entity.ConfirmationCode;
+import kg.melakuera.springwebcontent.entity.Role;
 import kg.melakuera.springwebcontent.repository.ConfirmationCodeRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
-
-import kg.melakuera.springwebcontent.entity.AppUser;
-import kg.melakuera.springwebcontent.entity.Role;
-import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 @Log
 public class RegistrationService {
@@ -23,7 +22,7 @@ public class RegistrationService {
 	private final AppMailSenderService appMailSender;
 	private final ConfirmationCodeRepository confirmationCodeRepository;
 
-	public boolean 	register(AppUser formAppUser) {
+	public boolean register(AppUser formAppUser) {
 
 		// Сохранение юзера в бд
 		AppUser appUser = new AppUser(
