@@ -48,6 +48,28 @@ public class MessageController {
 
 		return "messages";
 	}
+
+	@GetMapping("/like/message/{id}")
+	public String like(
+			@AuthenticationPrincipal AppUser authUser,
+			@PathVariable("id") Long id,
+			Model model) {
+		model.addAttribute("user", authUser);
+		messageService.like(authUser, id);
+
+		return "redirect:/messages";
+	}
+
+	@GetMapping("/unlike/message/{id}")
+	public String unlike(
+			@AuthenticationPrincipal AppUser authUser,
+			@PathVariable("id") Long id,
+			Model model) {
+		model.addAttribute("user", authUser);
+		messageService.unlike(authUser, id);
+
+		return "redirect:/messages";
+	}
 	
 	@PostMapping("/messages/new")
 	public String saveMessage(
