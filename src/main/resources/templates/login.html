@@ -13,8 +13,8 @@
         <div>
             <h1 class="text-center">Авторизация</h1>
             <div class="text-center" style="color: #f46767" th:if="${param.error}">
-                <p> Либо эл. почта или пароль введен неправильно, <br>
-                    либо эл. почта не подтверждена! <br>
+                <p> Либо эл. почта или пароль введен неправильно, <br/>
+                    либо эл. почта не подтверждена! <br/>
                     Пожалуйста попробуйте еще раз </p>
             </div>
             <form action="/login" method="post">
@@ -32,7 +32,7 @@
                     <input class="form-check-input" type="checkbox" name="remember-me" id="checkRememberMe">
                     <label class="form-check-label" for="checkRememberMe">Запомнить меня на этом компьютере</label>
                 </div>
-                <br>
+                <br/>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-outline-success">Войти</button>
                 </div>
@@ -40,7 +40,8 @@
         </div>
     </div>
     <script src="/js/script.js"></script>
-    <div th:insert="fragments :: bootstrap-js"></div>
 </div>
+
+<th:block th:insert="fragments :: bootstrap-js"></th:block>
 </body>
 </html>

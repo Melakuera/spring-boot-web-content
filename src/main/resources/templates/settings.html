@@ -40,13 +40,13 @@
         <input type="hidden" th:field="*{email}">
         <input type="hidden" th:field="*{password}">
     </form>
-    <br>
+    <br/>
     <form th:action="@{/reset/password/{id}(id=${appUser.getId()})}" method="post">
         <div class="d-grid gap-2">
             <button class="btn btn-outline-success" type="submit">Сбросить пароль!</button>
         </div>
     </form>
-    <br>
+    <br/>
     <form th:action="@{/profile/{id}(id=${appUser.getId()})}" method="get">
         <div class="d-grid gap-2">
             <button class="btn btn-outline-success" type="submit">Назад!</button>
@@ -54,6 +54,6 @@
     </form>
 </div>
 
-<div th:insert="fragments :: bootstrap-js"></div>
+<th:block th:insert="fragments :: bootstrap-js"></th:block>
 </body>
 </html>

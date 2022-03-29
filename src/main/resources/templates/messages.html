@@ -100,7 +100,7 @@
                                         <form class="form" th:action="@{/update/message/{id}(id=${m.getId()})}"
                                               method="get">
                                             <button type="submit"
-                                                    class="btn btn-outline-success btn-sm">Редактировать</button>
+                                                    class="btn btn-outline-success btn-sm empty-btn">Редактировать</button>
                                         </form>
                                     </span>
                                 </li>
@@ -109,7 +109,7 @@
                                         <form class="form" th:action="@{/delete/message/{id}(id=${m.getId()})}"
                                               th:method="delete">
                                             <button type="submit"
-                                                    class="btn btn-outline-success btn-sm">Удалить</button>
+                                                    class="btn btn-outline-success btn-sm empty-btn">Удалить</button>
                                         </form>
                                     </span>
                                 </li>

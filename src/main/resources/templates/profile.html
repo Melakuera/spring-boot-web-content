@@ -39,7 +39,7 @@
             </form>
         </div>
     </div>
-    <br>
+    <br/>
     <div class="row">
         <div class="col">
             <div class="card">
@@ -66,13 +66,13 @@
             </div>
         </div>
     </div>
-    <br>
+    <br/>
     <div th:if="${foundUser.getId()} == ${user.getId()}">
         <form th:action="@{/settings/{id}(id=${foundUser.getId()})}" method="get">
             <button type="submit" class="btn btn-outline-success" style="width: 100%;">Настройки!</button>
         </form>
     </div>
-    <br>
+    <br/>
     <div th:insert="~{fragments :: pagination}"></div>
     <div th:each="m : ${messages}">
         <div class="card my-3" style="width: 100%;">
@@ -140,6 +140,6 @@
     </div>
 </div>
 
-<div th:insert="fragments :: bootstrap-js"></div>
+<th:block th:insert="fragments :: bootstrap-js"></th:block>
 </body>
 </html>

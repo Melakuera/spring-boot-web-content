@@ -23,13 +23,13 @@
                     <label for="exampleFormControlInput1" class="form-label">Тег</label>
                     <input type="text" class="form-control" th:field="*{tag}" id="exampleFormControlInput1">
                 </div>
-                <br>
+                <br/>
                 <div class="col">
                     <label class="form-label" for="formFile">Изображение</label>
                     <input type="file" class="form-control" accept="image/*" name="file" id="formFile">
                 </div>
             </div>
-            <br>
+            <br/>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-outline-success">Изменить!</button>
             </div>
@@ -37,6 +37,6 @@
     </form>
 </div>
 
-<div th:insert="fragments :: bootstrap-js"></div>
+<th:block th:insert="fragments :: bootstrap-js"></th:block>
 </body>
 </html>

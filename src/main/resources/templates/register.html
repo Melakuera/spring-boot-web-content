@@ -12,7 +12,7 @@
     <div class="d-grid gap-2 col-6 mx-auto">
         <h1 class="text-center">Регистрация</h1>
         <div class="text-center" style="color: #f46767" th:if="${error_msg}">
-            <p> Такой пользователь уже сущесвует! <br>
+            <p> Такой пользователь уже сущесвует! <br/>
                 Пожалуйста попробуйте еще раз</p>
         </div>
         <form action="/register" method="post" th:object="${appUser}">
@@ -55,6 +55,6 @@
     </div>
 </div>
 
-<div th:insert="fragments :: bootstrap-js"></div>
+<th:block th:insert="fragments :: bootstrap-js"></th:block>
 </body>
 </html>

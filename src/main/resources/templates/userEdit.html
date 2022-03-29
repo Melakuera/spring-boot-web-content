@@ -41,18 +41,18 @@
                     </option>
                 </select>
             </div>
-            <br>
+            <br/>
             <div class="col-8">
-                <br>
+                <br/>
                 <button class="btn btn-outline-success" style="width: 100%" type="submit">Изменить!</button>
             </div>
         </div>
-        <br><br>
+        <br/><br/>
         <input type="hidden" th:field="*{email}">
         <input type="hidden" th:field="*{password}">
     </form>
 </div>
 
-<div th:insert="fragments :: bootstrap-js"></div>
+<th:block th:insert="fragments :: bootstrap-js"></th:block>
 </body>
 </html>
