@@ -8,25 +8,24 @@
 <div th:insert="~{fragments :: navbar}"></div>
 <div class="container mt-5">
     <h1>Сообщения</h1>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-6 mb-3">
         <form class="row gy-2 gx-3 align-items-center"
               th:action="@{/messages}"
               method="get">
             <div class="col-6">
-                <input class="form-control" type="text" name="filter" placeholder="Найти по тегу">
+                <input class="form-control" type="text" name="filter" placeholder="Найти по тегу"/>
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-outline-success">Искать!</button>
             </div>
         </form>
     </div>
-    <br>
     <a class="btn btn-outline-success" data-bs-toggle="collapse" href="#collapseExample" role="button"
        aria-expanded="false"
        aria-controls="collapseExample">
         Добавить новое сообщение!
     </a>
-    <br>
+    <br/>
     <div class="collapse" id="collapseExample">
         <form action="/messages/new" method="post" th:object="${message}" enctype="multipart/form-data">
             <div class="form-group mt-3">
@@ -39,25 +38,23 @@
                     </span>
                 </div>
 
-                <div class="row">
-                    <div class="col-5">
+                <div class="row mb-3">
+                    <div class="col-5 mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Тег</label>
-                        <input type="text" class="form-control" th:field="*{tag}" id="exampleFormControlInput1">
+                        <input type="text" class="form-control" th:field="*{tag}" id="exampleFormControlInput1"/>
                     </div>
-                    <br>
                     <div class="col">
                         <label class="form-label" for="formFile">Изображение</label>
-                        <input type="file" class="form-control" accept="image/*" name="file" id="formFile">
+                        <input type="file" class="form-control" accept="image/*" name="file" id="formFile"/>
                     </div>
                 </div>
-                <br>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-outline-success">Добавить!</button>
                 </div>
             </div>
         </form>
     </div>
-    <br>
+    <br/>
     <div th:insert="~{fragments :: pagination}"></div>
     <div th:each="m : ${messages}">
         <div class="card my-3" style="width: 100%;">
@@ -66,7 +63,7 @@
             </div>
             <div class="card-body">
                 <span th:text="${m.getText()}"></span>
-                <hr>
+                <hr/>
                 <div>
                     <i th:text="${m.getTag()}"></i>
                 </div>
@@ -81,12 +78,12 @@
                     <div class="col align-self-center">
                         <div th:if="${m.getLikeUsers().contains(user)}" style="display: inline-block">
                             <a th:href="@{/unlike/message/{id}(id=${m.getId()})}">
-                                <img src="/img/likeyet.png" width="30px" alt="...">
+                                <img src="/img/likeyet.png" width="30px" alt="..."/>
                             </a>
                         </div>
                         <div th:if="not ${m.getLikeUsers().contains(user)}" style="display: inline-block">
                             <a th:href="@{/like/message/{id}(id=${m.getId()})}">
-                                <img src="/img/like.png" width="30px" alt="...">
+                                <img src="/img/like.png" width="30px" alt="..."/>
                             </a>
                         </div>
                         <span style="color: #1ab06d" th:text="${m.getLikeUsers().size()}"></span>
@@ -125,6 +122,6 @@
     </div>
 </div>
 
-<div th:insert="fragments :: bootstrap-js"></div>
+<th:block th:replace="fragments :: bootstrap-js"></th:block>
 </body>
 </html>
